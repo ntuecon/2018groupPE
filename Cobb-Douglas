@@ -1,0 +1,7 @@
+def CD(bundle,A,alpha):
+    """ This is a Cobb-Douglas utility/production function where A represents technology level of
+    a country and alpha is the universal elasticity parameter """
+    total = A
+    for i in bundle:
+        total *=  i ** alpha
+    return total
