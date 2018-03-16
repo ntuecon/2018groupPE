@@ -5,3 +5,4 @@ def CD(bundle,A,alpha):
     for i in bundle:
         total *=  i ** alpha
     return total
+"""Line added here"""
