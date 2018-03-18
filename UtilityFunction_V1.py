@@ -38,12 +38,6 @@ t = input("Please enter the elasticity parameters for factors(notice that the le
 
 print CESuf(c,f,a,b,s,t)
 
-  """Define utility function, combining the consumption part and the factor part"""
-  utility_subc = (np.dot((cbundle_qty ** y) , a)) ** ((1 - s) / y)
-  utility_subf = np.dot((np.power(fbundle_qty , (t + 1))) , (b / (t + 1)))
-  utility = utility_subc - utility_subf
-  return utility
-
 
 """An example"""
 
