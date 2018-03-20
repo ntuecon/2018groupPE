@@ -6,35 +6,36 @@
 import math
 import numpy as np
 
-"""def CES utility function"""
+"""Define the CES Utility Function"""
 def CESuf(c,f,a,b,s,t):
-  """get all the attributes needed to compute utility"""
+  """Obtain all the attributes needed to compute utility"""
   y = np.array(0.8)
   """Define the consumption bundle of an individual consumer"""
-  c  = np.array(c)
-   """Define the factor bundle of an individual consumer"""
+  c = np.array(c)
+  """Define the factor bundle of an individual consumer"""
   f = np.array(f)
-  """Define the weighting parameters for conumption"""
+  """Define the weighting parameters for consumption"""
   a = np.array(a)
-  """Define the parameter that represents how the consumer's aversion to supply factors"""
+  """Define the parameter that represents an individual consumer's degree of aversion to supply factors"""
   b = np.array(b)
   """Define the elasticity parameters for consumption"""
   s = np.array(s)
   """Define the elasticity parameters for factors"""
   t = np.array(t)
+  
   """Define utility function, combining the consumption part and the factor part"""
   utility_subc = (np.dot((c ** y) , a)) ** ((1 - s) / y)
   utility_subf = np.dot((np.power(f , (t + 1))) , (b / (t + 1)))
   utility = utility_subc - utility_subf
   return utility
 
-"""Get the attributes of the CES utility function"""
-c = input("Please enter the conumption bundel(a list of goods):")
-f = input("Please enter the factors supplied(a list of factors):")
-a = input("Please enter the weighting parameters for consumption goods(Notice that the length of this list should be the same as the length of consumption bundle):")
-b = input("How do you think the consumer hates to work?(larger number means less willing to work):")
+"""Input the attributes of the CES utility function"""
+c = input("Please enter the consumption bundle(the quantities of your list of goods):")
+f = input("Please enter the factors supplied(the quantities of your list of factors):")
+a = input("Please enter the weighting parameters for consumption goods(The length of this list should be the same as the length of your consumption bundle):")
+b = input("To what extent do you think the consumer hates to work?(Larger number means less willing to work):")
 s = input("Please enter the elasticity parameter for consumption(a number):")
-t = input("Please enter the elasticity parameters for factors(notice that the length of this list should be the same as the length of factor list):")
+t = input("Please enter the elasticity parameters for factors(The length of this list should be the same as the length of your factor list):")
 
 print CESuf(c,f,a,b,s,t)
 
