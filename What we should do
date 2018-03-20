@@ -4,3 +4,11 @@ Things need to be done before next class:
 2. Read through the slides of CH.2
 3. Read through several examples of production externality
 4. Make sure that ur python can use functinos from numpy and scipy
+
+
+3/20
+1.Simplified CES utility function to just two attributes: goods and factors
+2.Simplified CES production function to just one attribute : factors
+3.Construct social welfare function
+4.Figure out how to maximize the social welfare function with only one person in the economy
+5.After finish 4., continue to think how to maximize social welfare when there are more than two kinds of people.
