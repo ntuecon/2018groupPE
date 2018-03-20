@@ -1,7 +1,7 @@
 """Created on Sat Mar 17 16:09:42 2018"""
 
 """@author: WeiJin, PoHan"""
-
+"""This CES utility function was built according to Tresch, R. W. (2008). Public sector economics. Palgrave Macmillan."""
 
 import math
 import numpy as np
@@ -10,17 +10,15 @@ import numpy as np
 def CESuf(c,f,a,b,s,t):
   """Obtain all the attributes needed to compute utility"""
   y = np.array(0.8)
-  """Define the consumption bundle of an individual consumer"""
+  """Obtain the consumption and factor bundle of an individual consumer"""
   c = np.array(c)
-  """Define the factor bundle of an individual consumer"""
   f = np.array(f)
-  """Define the weighting parameters for consumption"""
+  """Obtain the weighting parameters for consumption"""
   a = np.array(a)
-  """Define the parameter that represents an individual consumer's degree of aversion to supply factors"""
+  """Obatain the parameter that represents an individual consumer's degree of aversion to supply factors"""
   b = np.array(b)
-  """Define the elasticity parameters for consumption"""
+  """Obtain the elasticity parameters for consumption and factor"""
   s = np.array(s)
-  """Define the elasticity parameters for factors"""
   t = np.array(t)
   
   """Define utility function, combining the consumption part and the factor part"""
