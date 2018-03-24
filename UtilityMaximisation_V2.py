@@ -7,7 +7,7 @@ import numpy as np
 import random
 import math
 
-"""Randomising from a range of integers"""
+"""Randomising from a range of integers(maybe explain real quit how we can use this funtcion.)"""
 def Nested_Loop_Int(layer_1,layer_2,min_int,max_int,loop_output):
     X = np.array([])
     loop_output = np.array([])
