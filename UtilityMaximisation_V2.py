@@ -43,7 +43,7 @@ def Loop_Slice(layer,array,step,loop_output):
     loop_output = np.array([])
     i = 1
     while i <= layer:
-        X = np.sum(array[i - 1::layer])
+        X = np.sum(array[i - 1::step])
         loop_output = np.append(loop_output,X)
         i += 1
     return loop_output
