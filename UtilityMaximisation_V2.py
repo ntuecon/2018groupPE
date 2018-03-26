@@ -59,75 +59,75 @@ def Loop(layer,dp):
 
 
 """Obtain number of consumers in the economy"""
-totalconsumers = input("Please enter the number of consumers in the economy:")
+total_consumers = input("Please enter the number of consumers in the economy:")
 """Obtain number of goods produced in the economy"""
-totalgoods = input("Please enter the number of types of goods produced in the economy:")
-totalfactors = input("Please enter the number of types of factors available in the economy:")
+total_goods = input("Please enter the number of types of goods produced in the economy:")
+total_factors = input("Please enter the number of types of factors available in the economy:")
 
 """Construct market clearing constraints"""
 
 """Consolidate the consumption quantities of each good of each consumer"""
-Clist = np.array([])
-Clist = Nested_Loop_Int(totalconsumers,totalgoods,0,10)
-print "The list of consumption quantities of each good of each consumer is:",Clist
+C_list = np.array([])
+C_list = Nested_Loop_Int(total_consumers,total_goods,0,10)
+print "The list of consumption quantities of each good of each consumer is:",C_list
 
 """Obtain total consumption of each good"""
 total_cons = np.array([])
-total_cons = Loop_Slice(Clist,totalgoods)
+total_cons = Loop_Slice(C_list,total_goods)
 print "The total consumption quantity of each good is:",total_cons
 
 """Consolidate the factor quantities used to produce each type of good"""
-Flist = np.array([])
-Flist = Nested_Loop_Int(totalgoods,totalfactors,0,5)
-print "The list of factor quantities of each factor used to produce each good is:",Flist
+F_list = np.array([])
+F_list = Nested_Loop_Int(total_goods,total_factors,0,5)
+print "The list of factor quantities of each factor used to produce each good is:",F_list
 
 """Define the CES production function"""
 
 """Compile list of attributes that enter the production function"""
 X = np.array([])
-X = Loop(totalgoods,2)
+X = Loop(total_goods,2)
 print "The corresponding parameter X for each good is:",X
 
 P = np.array([])
-P = Nested_Loop(totalgoods,totalfactors,2)
+P = Nested_Loop(total_goods,total_factors,2)
 print "The corresponding parameter P for each factor for each good is:",P
 
 """Obtain the total production quantity of each good"""
-weightedFlist = np.array([])
+weighted_F_list = np.array([])
 weightedflist = np.array([])
 i = 0
-while i < totalgoods:
+while i < total_goods:
     j = 0
-    while j < totalfactors:
-        weightedflist = np.append(weightedflist,((Flist[(i * totalfactors) + j] ** (1 - X[i])) / (1 - X[i])) * P[(i * totalfactors) + j])
+    while j < total_factors:
+        weightedflist = np.append(weightedflist,((Flist[(i * total_factors) + j] ** (1 - X[i])) / (1 - X[i])) * P[(i * total_factors) + j])
         j += 1
-    weightedFlist = np.append(weightedFlist,weightedflist)
+    weighted_F_list = np.append(weighted_F_list,weightedflist)
     weightedflist = np.array([])
     i += 1
 
 total_prod = np.array([])
-for i in range(len(weightedFlist)):
+for i in range(len(weighted_F_list)):
     if i == 0:
-        total_prod = np.append(total_prod,round(np.sum(weightedFlist[i:i + totalfactors]),0))
-    elif i % totalfactors == 0 and i < totalfactors * totalgoods:
-        total_prod = np.append(total_prod,round(np.sum(weightedFlist[i:i + totalfactors]),0))
+        total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
+    elif i % total_factors == 0 and i < total_factors * total_goods:
+        total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
 print "The total production quantity of each good is:",total_prod
 """First market constraint is that the total consumption of each good is equal to the total
 production of each good given CES production function. Hence total_cons == total_prod"""
 
 """Obtain total factor quantity of each factor demanded"""
 total_factor_dd = np.array([])
-total_factor_dd = Loop_Slice(Flist,totalfactors)
+total_factor_dd = Loop_Slice(F_list,total_factors)
 print "The total factor quantity of each factor demanded is:",total_factor_dd
 
 """Obtain factor quantities of each factor supplied from each consumer"""
 factor_list = np.array([])
-factor_list = Nested_Loop_Int(totalconsumers,totalfactors,0,10)
+factor_list = Nested_Loop_Int(total_consumers,total_factors,0,10)
 print "The list of factor quantities of each factor supplied by each consumer is:",factor_list
 
 """Obtain total factor supplied for each factor"""
 total_factor_ss = np.array([])
-total_factor_ss = Loop_Slice(factor_list,totalfactors)
+total_factor_ss = Loop_Slice(factor_list,total_factors)
 print "The total factor quantity supplied for each factor is:",total_factor_ss
 """Second market constraint is that the total factor quantity supplied for each factor is equal
 to the total factor quantity demanded for each factor. Hence, total_factor_ss == total_factor_dd"""
@@ -135,9 +135,9 @@ to the total factor quantity demanded for each factor. Hence, total_factor_ss ==
 
 """Define social welfare maximisation function"""
 """Assume different weights attached to the utility of different consumers"""
-utilityweights = np.array([])
-utilityweights = Loop(totalconsumers,2)
-print "The corresponding weights on utilities of each consumer is:",utilityweights
+utility_weights = np.array([])
+utility_weights = Loop(total_consumers,2)
+print "The corresponding weights on utilities of each consumer is:",utility_weights
 
 """Define the CES utility function"""
 """Compile list of attributes that enter the utility function"""
@@ -148,52 +148,52 @@ s = round(random.random(),2)
 print "Parameter s is:",s
 
 A = np.array([])
-A = Nested_Loop(totalconsumers,totalgoods,2)
+A = Nested_Loop(total_consumers,total_goods,2)
 print "The corresponding parameter A for each good for each consumer is:",A
 
 B = np.array([])
-B = Loop(totalconsumers,2)
+B = Loop(total_consumers,2)
 print "The corresponding parameter B for each consumer is:",B
 
 T = np.array([])
-T = Loop(totalfactors,2)
+T = Loop(total_factors,2)
 print "The corresponding parameter T for each factor is:",T
 
 """Obtain the total utility of each consumer"""
-weighted_utility_subc = np.multiply((Clist ** y) , A)
+weighted_utility_subc = np.multiply((C_list ** y) , A)
 
 utility_subc = np.array([])
 
 for i in range(len(weighted_utility_subc)):
     if i == 0:
         """Need to make sure y is non-zero"""
-        utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + totalgoods])) ** ((1 - s) / y))
-    elif i % totalgoods == 0 and i < totalgoods * totalconsumers:
-        utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + totalgoods])) ** ((1 - s) / y))
+        utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
+    elif i % total_goods == 0 and i < total_goods * total_consumers:
+        utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
        
 tweighted_utility_subf = np.array([])
 i = 0
-while i < totalconsumers:
+while i < total_consumers:
     j = 0
-    while j < totalfactors:
-        tweighted_utility_subf = np.append(tweighted_utility_subf,((factor_list[(i * totalfactors) + j] ** (1 + T[j])) / (1 + T[j])))
+    while j < total_factors:
+        tweighted_utility_subf = np.append(tweighted_utility_subf,((factor_list[(i * total_factors) + j] ** (1 + T[j])) / (1 + T[j])))
         j += 1
     i += 1
 
 weighted_utility_subf = np.array([])
 for i in range(len(tweighted_utility_subf)):
     if i == 0:
-        weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + totalfactors]) * B[i]))
-    elif i % totalfactors == 0 and i < totalconsumers * totalfactors:
-        weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + totalfactors]) * B[i / totalfactors])
+        weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + total_factors]) * B[i]))
+    elif i % total_factors == 0 and i < total_consumers * total_factors:
+        weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + total_factors]) * B[i / total_factors])
 
 utility_subf = np.array([])
 
 for i in range(len(weighted_utility_subf)):
     if i == 0:
-        utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + totalfactors])))
-    elif i % totalfactors == 0 and i < totalconsumers * totalfactors:
-        utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + totalfactors])))
+        utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
+    elif i % total_factors == 0 and i < total_consumers * total_factors:
+        utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
 
 utility_list = np.array([])
 utility_list = np.round((utility_subc - utility_subf) , 2)
@@ -206,5 +206,5 @@ overall_weight = 1 / (random.random())
 print "The overall weight attached to the welfare maximisation function is:",overall_weight
 """Make the utilities positive"""
 utility_list_square = utility_list ** 2
-welfare_max = (np.sum(np.power(utility_list_square , utilityweights))) ** overall_weight
+welfare_max = (np.sum(np.power(utility_list_square , utility_weights))) ** overall_weight
 print "The welfare maximisation function is:",welfare_max
