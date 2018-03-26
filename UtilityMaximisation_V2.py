@@ -7,7 +7,7 @@ import numpy as np
 import random
 import math
 
-"""Randomising from a range of integers(maybe explain real quit how we can use this funtcion.)"""
+"""Randomising from a range of integers"""
 def Nested_Loop_Int(layer_1,layer_2,min_int,max_int):
     X = np.array([])
     loop_output = np.array([])
@@ -38,11 +38,11 @@ def Nested_Loop(layer_1,layer_2,dp):
     return loop_output
 
 """Mathematical operations across certain elements in an array"""
-def Loop_Slice(layer,array,step):
+def Loop_Slice(array,step):
     X = np.array([])
     loop_output = np.array([])
     i = 1
-    while i <= layer:
+    while i <= step:
         X = np.sum(array[i - 1::step])
         loop_output = np.append(loop_output,X)
         i += 1
@@ -50,8 +50,8 @@ def Loop_Slice(layer,array,step):
 
 """Randomising from a range between 0 amd 1"""
 def Loop(layer,dp):
-    i = 0
     loop_output = np.array([])
+    i = 0
     while i < layer:
         loop_output = np.append(loop_output,round(random.random(),dp))
         i += 1
@@ -68,32 +68,31 @@ totalfactors = input("Please enter the number of types of factors available in t
 
 """Consolidate the consumption quantities of each good of each consumer"""
 Clist = np.array([])
-Clist = Nested_Loop_Int(totalconsumers,totalgoods,0,10,Clist)
+Clist = Nested_Loop_Int(totalconsumers,totalgoods,0,10)
 print "The list of consumption quantities of each good of each consumer is:",Clist
 
 """Obtain total consumption of each good"""
 total_cons = np.array([])
-total_cons = Loop_Slice(totalgoods,Clist,totalgoods,total_cons)
+total_cons = Loop_Slice(Clist,totalgoods)
 print "The total consumption quantity of each good is:",total_cons
 
 """Consolidate the factor quantities used to produce each type of good"""
 Flist = np.array([])
-Flist = Nested_Loop_Int(totalgoods,totalfactors,0,5,Flist)
+Flist = Nested_Loop_Int(totalgoods,totalfactors,0,5)
 print "The list of factor quantities of each factor used to produce each good is:",Flist
 
 """Define the CES production function"""
 
 """Compile list of attributes that enter the production function"""
 X = np.array([])
-X = Loop(totalgoods,2,X)
+X = Loop(totalgoods,2)
 print "The corresponding parameter X for each good is:",X
 
 P = np.array([])
-P = Nested_Loop(totalgoods,totalfactors,2,P)
+P = Nested_Loop(totalgoods,totalfactors,2)
 print "The corresponding parameter P for each factor for each good is:",P
 
 """Obtain the total production quantity of each good"""
-
 weightedFlist = np.array([])
 weightedflist = np.array([])
 i = 0
@@ -118,17 +117,17 @@ production of each good given CES production function. Hence total_cons == total
 
 """Obtain total factor quantity of each factor demanded"""
 total_factor_dd = np.array([])
-total_factor_dd = Loop_Slice(totalfactors,Flist,totalfactors,total_factor_dd)
+total_factor_dd = Loop_Slice(Flist,totalfactors)
 print "The total factor quantity of each factor demanded is:",total_factor_dd
 
 """Obtain factor quantities of each factor supplied from each consumer"""
 factor_list = np.array([])
-factor_list = Nested_Loop_Int(totalconsumers,totalfactors,0,10,factor_list)
+factor_list = Nested_Loop_Int(totalconsumers,totalfactors,0,10)
 print "The list of factor quantities of each factor supplied by each consumer is:",factor_list
 
 """Obtain total factor supplied for each factor"""
 total_factor_ss = np.array([])
-total_factor_ss = Loop_Slice(totalfactors,factor_list,totalfactors,total_factor_ss)
+total_factor_ss = Loop_Slice(factor_list,totalfactors)
 print "The total factor quantity supplied for each factor is:",total_factor_ss
 """Second market constraint is that the total factor quantity supplied for each factor is equal
 to the total factor quantity demanded for each factor. Hence, total_factor_ss == total_factor_dd"""
@@ -137,7 +136,7 @@ to the total factor quantity demanded for each factor. Hence, total_factor_ss ==
 """Define social welfare maximisation function"""
 """Assume different weights attached to the utility of different consumers"""
 utilityweights = np.array([])
-utilityweights = Loop(totalconsumers,2,utilityweights)
+utilityweights = Loop(totalconsumers,2)
 print "The corresponding weights on utilities of each consumer is:",utilityweights
 
 """Define the CES utility function"""
@@ -149,15 +148,15 @@ s = round(random.random(),2)
 print "Parameter s is:",s
 
 A = np.array([])
-A = Nested_Loop(totalconsumers,totalgoods,2,A)
+A = Nested_Loop(totalconsumers,totalgoods,2)
 print "The corresponding parameter A for each good for each consumer is:",A
 
 B = np.array([])
-B = Loop(totalconsumers,2,B)
+B = Loop(totalconsumers,2)
 print "The corresponding parameter B for each consumer is:",B
 
 T = np.array([])
-T = Loop(totalfactors,2,T)
+T = Loop(totalfactors,2)
 print "The corresponding parameter T for each factor is:",T
 
 """Obtain the total utility of each consumer"""
