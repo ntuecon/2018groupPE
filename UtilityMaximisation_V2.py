@@ -51,6 +51,7 @@ def Loop_Slice(layer,array,step):
 """Randomising from a range between 0 amd 1"""
 def Loop(layer,dp):
     i = 0
+    loop_output = np.array([])
     while i < layer:
         loop_output = np.append(loop_output,round(random.random(),dp))
         i += 1
