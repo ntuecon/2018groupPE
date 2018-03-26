@@ -7,8 +7,11 @@ Things need to be done before next class:
 
 
 3/20
-1.Simplified CES utility function to just two attributes: goods and factors
-2.Simplified CES production function to just one attribute : factors
-3.Construct social welfare function
+1.Simplified CES utility function to just two attributes: goods and factors(checked)
+2.Simplified CES production function to just one attribute : factors(checked)
+3.Construct social welfare function(checked)
 4.Figure out how to maximize the social welfare function with only one person in the economy
 5.After finish 4., continue to think how to maximize social welfare when there are more than two kinds of people.
+
+3/26
+1.Figure out how to maximize the social welfare function given the constraints.
