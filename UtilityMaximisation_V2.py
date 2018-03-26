@@ -62,6 +62,7 @@ def Loop(layer,dp):
 totalconsumers = input("Please enter the number of consumers in the economy:")
 """Obtain number of goods produced in the economy"""
 totalgoods = input("Please enter the number of types of goods produced in the economy:")
+"""Obtain number of factors in the economy"""
 totalfactors = input("Please enter the number of types of factors available in the economy:")
 
 """Construct market clearing constraints"""
