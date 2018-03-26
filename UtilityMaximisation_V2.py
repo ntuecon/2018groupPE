@@ -8,7 +8,7 @@ import random
 import math
 
 """Randomising from a range of integers(maybe explain real quit how we can use this funtcion.)"""
-def Nested_Loop_Int(layer_1,layer_2,min_int,max_int,loop_output):
+def Nested_Loop_Int(layer_1,layer_2,min_int,max_int):
     X = np.array([])
     loop_output = np.array([])
     i = 0
@@ -23,7 +23,7 @@ def Nested_Loop_Int(layer_1,layer_2,min_int,max_int,loop_output):
     return loop_output
 
 """Randomising from a range between 0 amd 1"""
-def Nested_Loop(layer_1,layer_2,dp,loop_output):
+def Nested_Loop(layer_1,layer_2,dp):
     X = np.array([])
     loop_output = np.array([])
     i = 0
@@ -38,7 +38,7 @@ def Nested_Loop(layer_1,layer_2,dp,loop_output):
     return loop_output
 
 """Mathematical operations across certain elements in an array"""
-def Loop_Slice(layer,array,step,loop_output):
+def Loop_Slice(layer,array,step):
     X = np.array([])
     loop_output = np.array([])
     i = 1
@@ -49,7 +49,7 @@ def Loop_Slice(layer,array,step,loop_output):
     return loop_output
 
 """Randomising from a range between 0 amd 1"""
-def Loop(layer,dp,loop_output):
+def Loop(layer,dp):
     i = 0
     while i < layer:
         loop_output = np.append(loop_output,round(random.random(),dp))
@@ -92,9 +92,7 @@ P = Nested_Loop(totalgoods,totalfactors,2,P)
 print "The corresponding parameter P for each factor for each good is:",P
 
 """Obtain the total production quantity of each good"""
-weightedFlist = np.array([])
-weightedflist = np.array([])
-i = 0
+
 weightedFlist = np.array([])
 weightedflist = np.array([])
 i = 0
