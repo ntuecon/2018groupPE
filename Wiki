@@ -1,0 +1,6 @@
+Things to mention in the Wiki
+
+Goal of the project
+Explain the composition
+Give examples of externalities and what governments do to deal with them
+Mention test cases after running them
