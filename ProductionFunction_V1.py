@@ -9,9 +9,9 @@ import numpy as np
 
 """Continuation from UtilityFunction. Refer above for more definitions."""
 
-def CESpf(f,p):
+def CESpf(f,p,x):
   """Obtain all the attributes needed to calculate the production level"""
-  x = 0.4
+  x = np.array(x)
   f = np.array(f)
   p = np.arrary(p)
   """The production level given certain list of factors"""
@@ -21,9 +21,11 @@ def CESpf(f,p):
 """Enters the attributes"""
 f = input("please enter the list of foactors used to produced goods:")
 p = input("Please enter the list of weighting parameters for all the factors(the length of this list should be the same as the length of the factors):")
-print CESpf(f,p)
+x = input("Please enter the elasticity parameter for production function(a number):")
+print CESpf(f,p,x)
 
 """An example"""
 f = [10,20,2]
 p = [1,0.5,1.5]
-print CESpf(f,p)
+x = 0.5
+print CESpf(f,p,x)
