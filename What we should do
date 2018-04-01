@@ -18,6 +18,7 @@ Things need to be done before next class:
 
 1/4
 1.Organise codes into classes.
-2.Construct optimisation function.
+2.Construct  unconstrained optimisation function first.
 3.Codes right at the beginning to check whether inputs are of the correct data type and range (if-else statements).
 4.Update wiki.
+5.Attempt to add in constraints to the optimisation function.
