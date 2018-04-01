@@ -26,7 +26,7 @@ def CESpf(f):
   return production
   
 """Enters the attributes"""
-f = input("please enter the list of foactors used to produced goods:")
+f = input("please enter the list of factors used to produced goods:")
 print CESpf(f)
 
 """An example"""
