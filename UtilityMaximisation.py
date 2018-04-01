@@ -22,7 +22,7 @@ def Nested_Loop_Int(layer_1,layer_2,min_int,max_int):
         i += 1
     return loop_output
 
-"""Randomising from a range between 0 amd 1"""
+"""Randomising from a range between 0 and 1"""
 def Nested_Loop(layer_1,layer_2,dp):
     X = np.array([])
     loop_output = np.array([])
