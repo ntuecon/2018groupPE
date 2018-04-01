@@ -15,7 +15,7 @@ def CESuf(c,f,a,b,s,t):
   f = np.array(f)
   """Obtain the weighting parameters for consumption"""
   a = np.array(a)
-  """Obatain the parameter that represents an individual consumer's degree of aversion to supply factors"""
+  """Obtain the parameter that represents an individual consumer's degree of aversion to supply factors"""
   b = np.array(b)
   """Obtain the elasticity parameters for consumption and factor"""
   s = np.array(s)
