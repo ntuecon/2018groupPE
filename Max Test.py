@@ -179,12 +179,12 @@ for i in range(output_list_length):
     output_list.append(1)
 """construsct the constraints with only two consumers, two goods and two factors"""
 cons = ("""total demand of good1=supply of good1"""
-        {'type': 'eq','fun' : lambda x:x[0]+x[2]=CESpf([x[8],x[9]])},
+        {'type': 'eq','fun' : lambda x:x[0]+x[2]-CESpf([x[8],x[9]])},
         """total demand of good2=supply of good2"""
-        {'type': 'eq','fun' : lambda x:x[1]+x[3]=CESpf([x[10],x[11]])},
+        {'type': 'eq','fun' : lambda x:x[1]+x[3]-CESpf([x[10],x[11]])},
         """total demand of factor1=supply of factor1"""
-        {'type': 'eq','fun' : lambda x:x[4]+x[6]=x[8]+x[10]},
+        {'type': 'eq','fun' : lambda x:x[4]+x[6]-x[8]-x[10]},
         """total demand of factor2=supply of factor2"""
-        {'type': 'eq','fun' : lambda x:x[5]+x[7]=x[9]+x[11]},
+        {'type': 'eq','fun' : lambda x:x[5]+x[7]-x[9]-x[11]},
          )
 res = scipy.optimize.minimize(consumption.welfare_max,output_list,constraints=cons,method="SLSQP")
