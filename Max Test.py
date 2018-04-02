@@ -187,4 +187,4 @@ cons = ("""total demand of good1=supply of good1"""
         """total demand of factor2=supply of factor2"""
         {'type': 'eq','fun' : lambda x:x[5]+x[7]=x[9]+x[11]},
          )
-max = scipy.optimize.minimize(consumption.welfare_max,output_list,constraints=cons,method="SLSQP")
+res = scipy.optimize.minimize(consumption.welfare_max,output_list,constraints=cons,method="SLSQP")
