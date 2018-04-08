@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 """
 Created on Mon Apr 02 16:34:45 2018
-
 @author: WeiJin
 """
 
@@ -9,8 +7,7 @@ import numpy as np
 import random
 import scipy
 from scipy.optimize import minimize
-from SimplifiedCESpf import CESpf
-from simplifiedCESuf import CESuf
+
 
 # Randomising from a range between 0 amd 1
 def Loop(layer,dp):
@@ -47,6 +44,11 @@ def Loop_Slice(array,step):
         i += 1
     return loop_output
 
+# constraint
+def sum(list):
+    return np.sum(np.abs(np.array(list)))
+
+
 """Setting up the economy"""
 # Obtain number of consumers in the economy
 total_consumers = int(input("Please enter the number of consumers in the economy:"))
@@ -60,21 +62,30 @@ consumption_length = total_consumers * total_goods
 factor_ss_length = total_consumers * total_goods
 consumer_length = consumption_length + factor_ss_length
 
+# Randomize parameters
+# Utility Function
+y = random.randint(1,5)
+s = round(random.random(),2)
+A = Nested_Loop(total_consumers,total_goods,2)
+B = Loop(total_consumers,2)
+T = Loop(total_factors,2)
+# Welfare function
+overall_weight = 1 / (random.random())
+utility_weights = Loop(total_consumers,2)
+# Production function
+X = Loop(total_goods,2)
+P = Nested_Loop(total_goods,total_factors,2)
+
+
+
 class Consumption():
     def __init__(self):
         print ""
     def welfare_max(self,output_list):
+        # THIS FUNCTION RETURNS A NUMBER (FOR OPTIMIZATION)
         # Consumption list
         c_list = np.array(output_list[0:consumption_length])
-        print c_list
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
-        print f_list
-        # Obtain parameters
-        y = random.randint(1,5)
-        s = round(random.random(),2)
-        A = Nested_Loop(total_consumers,total_goods,2)
-        B = Loop(total_consumers,2)
-        T = Loop(total_factors,2)
         # Calculate utility
         weighted_utility_subc = np.multiply((c_list ** y) , A)
         utility_subc = np.array([])
@@ -111,10 +122,6 @@ class Consumption():
         utility_list = np.array([])
         utility_list = np.round((utility_subc - utility_subf) , 2)
         
-        # Overall weight for the welfare function
-        overall_weight = 1 / (random.random())
-        # Individual weights for the welfare function
-        utility_weights = Loop(total_consumers,2)
         # Make utilities positive
         utility_list_square = utility_list ** 2
         # Maximize welfare
@@ -135,9 +142,6 @@ class Consumption():
         # Used in first constraint
         # Factor list
         f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
-        # Obtain parameters
-        X = Loop(total_goods,2)
-        P = Nested_Loop(total_goods,total_factors,2)
         # Calculate production
         weighted_F_list = np.array([])
         weightedflist = np.array([])
@@ -163,28 +167,29 @@ class Consumption():
         factor_dd = Loop_Slice(f_list,total_factors)
         return factor_dd
     
-def constraints(consumption_instance,production_instance):
-    # Define first constraint c1 as total consumption equals total production for each good
-    consumption_instance = Consumption()
-    production_instance = Production()
-    c1 = consumption_instance.total_consumption - production_instance.total_production
-    # Define second constraint c2 as total factor supplied equals total factor demanded for each factor
-    c2 = consumption_instance.total_factor_ss - production_instance.total_factor_dd
+
        
 consumption = Consumption()
-output_list_length = total_consumers * (total_goods + total_factors)
+output_list_length = total_consumers * (total_goods + total_factors) + total_goods * total_factors
 output_list = []
 i = 0
 for i in range(output_list_length):
     output_list.append(1)
-"""construsct the constraints with only two consumers, two goods and two factors"""
-cons = ("""total demand of good1=supply of good1"""
-        {'type': 'eq','fun' : lambda x:x[0]+x[2]-CESpf([x[8],x[9]])},
-        """total demand of good2=supply of good2"""
-        {'type': 'eq','fun' : lambda x:x[1]+x[3]-CESpf([x[10],x[11]])},
-        """total demand of factor1=supply of factor1"""
-        {'type': 'eq','fun' : lambda x:x[4]+x[6]-x[8]-x[10]},
-        """total demand of factor2=supply of factor2"""
-        {'type': 'eq','fun' : lambda x:x[5]+x[7]-x[9]-x[11]},
-         )
-res = scipy.optimize.minimize(consumption.welfare_max,output_list,constraints=cons,method="SLSQP")
+
+Cons = ({'type': 'eq','fun' : lambda x:(consumption.total_consumption(x)-consumption.total_production(x))},
+        {'type': 'eq','fun' : lambda x:(consumption.total_factor_dd(x)-consumption.total_factor_ss(x))},
+        {'type': 'ineq','fun': lambda x:x[0]},
+        {'type': 'ineq','fun': lambda x:x[1]},
+        {'type': 'ineq','fun': lambda x:x[2]},
+        {'type': 'ineq','fun': lambda x:x[3]},
+        {'type': 'ineq','fun': lambda x:x[4]},
+        {'type': 'ineq','fun': lambda x:x[5]},
+        {'type': 'ineq','fun': lambda x:x[6]},
+        {'type': 'ineq','fun': lambda x:x[7]},
+        {'type': 'ineq','fun': lambda x:x[8]},
+        {'type': 'ineq','fun': lambda x:x[9]},
+        {'type': 'ineq','fun': lambda x:x[10]},
+        {'type': 'ineq','fun': lambda x:x[11]})
+
+res = minimize(consumption.welfare_max,output_list,method = 'SLSQP',constraints = Cons)
+print res
