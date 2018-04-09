@@ -60,7 +60,7 @@ total_factors = int(input("Please enter the number of types of factors available
 # Obtain output list lengths. 
 #These numbers would be useful when manipulating the long list that consists of goods/factors demanded/supplied by each consumer
 consumption_length = total_consumers * total_goods
-factor_ss_length = total_consumers * total_goods
+factor_ss_length = total_consumers * total_factors
 consumer_length = consumption_length + factor_ss_length
 
 # Randomizing parameters
