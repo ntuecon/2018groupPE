@@ -173,21 +173,11 @@ i = 0
 for i in range(output_list_length):
     output_list.append(random.random())
 
-
+#The first and the second constraints are the market clearing conditions
+#The third contraint is the nonzero constraints
 Cons = ({'type': 'eq','fun' : lambda x:(consumption.total_consumption(x)-consumption.total_production(x))},
         {'type': 'eq','fun' : lambda x:(consumption.total_factor_dd(x)-consumption.total_factor_ss(x))},
-        {'type': 'ineq','fun': lambda x:x[0]},
-        {'type': 'ineq','fun': lambda x:x[1]},
-        {'type': 'ineq','fun': lambda x:x[2]},
-        {'type': 'ineq','fun': lambda x:x[3]},
-        {'type': 'ineq','fun': lambda x:x[4]},
-        {'type': 'ineq','fun': lambda x:x[5]},
-        {'type': 'ineq','fun': lambda x:x[6]},
-        {'type': 'ineq','fun': lambda x:x[7]},
-        {'type': 'ineq','fun': lambda x:x[8]},
-        {'type': 'ineq','fun': lambda x:x[9]},
-        {'type': 'ineq','fun': lambda x:x[10]},
-        {'type': 'ineq','fun': lambda x:x[11]})
+        {'type': 'ineq','fun': lambda x:x})
 
 res = minimize(consumption.welfare_max,output_list,method = 'SLSQP',constraints = Cons)
 print res
