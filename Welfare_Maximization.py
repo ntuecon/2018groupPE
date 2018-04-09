@@ -1,7 +1,5 @@
-"""
-Created on Mon Apr 02 16:34:45 2018
-@author: WeiJin,PoHan
-"""
+"""Created on Mon Apr 02 16:34:45 2018"""
+"""@author: WeiJin,PoHan"""
 
 import numpy as np
 import random
@@ -44,16 +42,14 @@ def Loop_Slice(array,step):
         i += 1
     return loop_output
 
-# constraint
-def sum(list):
-    return np.sum(np.abs(np.array(list)))
-
 
 """Setting up the economy"""
 # Obtain number of consumers in the economy
 total_consumers = int(input("Please enter the number of consumers in the economy:"))
+
 # Obtain number of goods produced in the economy
 total_goods = int(input("Please enter the number of types of goods produced in the economy:"))
+
 # Obtain number of factors available in the economy
 total_factors = int(input("Please enter the number of types of factors available in the economy:"))
 
@@ -78,10 +74,10 @@ X = Loop(total_goods,2)
 P = Nested_Loop(total_goods,total_factors,2)
 
 
-
 class Consumption():
     def __init__(self):
         print ""
+    
     def welfare_max(self,output_list):
         # THIS FUNCTION RETURNS A NUMBER (FOR OPTIMIZATION)
         # Construct the consumption list
@@ -126,6 +122,7 @@ class Consumption():
         welfare = (np.sum(np.power(utility_list_square , utility_weights))) ** overall_weight
         neg_welfare = welfare * -1
         return neg_welfare
+    
     def total_production(self,output_list):
         #This function retrun total production for each goods given the factors used to produce them
         # Used in first constraint
@@ -148,24 +145,26 @@ class Consumption():
             if (i == 0) or (i % total_factors == 0 and i < total_factors * total_goods):
                 total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
         return total_prod
+    
     #The following functions just serve for constructing the constraints 
     def total_consumption(self,output_list):
         # Used in first constraint
         c_list = np.array(output_list[0:consumption_length])
         total_cons = Loop_Slice(c_list,total_goods)
         return total_cons
+    
     def total_factor_ss(self,output_list):
         # Used in second constraint
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
         factor_ss = Loop_Slice(f_list,total_factors)
         return factor_ss
+    
     def total_factor_dd(self,output_list):
         # Used in second constraint
         f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
         factor_dd = Loop_Slice(f_list,total_factors)
         return factor_dd
     
-
        
 consumption = Consumption()
 output_list_length = total_consumers * (total_goods + total_factors) + total_goods * total_factors
@@ -173,6 +172,7 @@ output_list = []
 i = 0
 for i in range(output_list_length):
     output_list.append(random.random())
+
 
 Cons = ({'type': 'eq','fun' : lambda x:(consumption.total_consumption(x)-consumption.total_production(x))},
         {'type': 'eq','fun' : lambda x:(consumption.total_factor_dd(x)-consumption.total_factor_ss(x))},
