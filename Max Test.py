@@ -92,10 +92,7 @@ class Consumption():
         weighted_utility_subc = np.multiply((c_list ** y) , A)
         utility_subc = np.array([])
         for i in range(len(weighted_utility_subc)):
-            if i == 0:
-                #Need to make sure y is non-zero
-                utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
-            elif i % total_goods == 0 and i < total_goods * total_consumers:
+            if (i == 0) or (i % total_goods == 0 and i < total_goods * total_consumers):
                 utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
         #The part from supplying factors  
         tweighted_utility_subf = np.array([])
@@ -111,14 +108,12 @@ class Consumption():
         for i in range(len(tweighted_utility_subf)):
             if i == 0:
                 weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + total_factors]) * B[i]))
-            elif i % total_factors == 0 and i < total_consumers * total_factors:
+            if i % total_factors == 0 and i < total_consumers * total_factors:
                 weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + total_factors]) * B[i / total_factors])
         
         utility_subf = np.array([])
         for i in range(len(weighted_utility_subf)):
-            if i == 0:
-                utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
-            elif i % total_factors == 0 and i < total_consumers * total_factors:
+            if (i== 0) or (i % total_factors == 0 and i < total_consumers * total_factors):
                 utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
                 
         #combinding the goods part and the factors part of the utility function
@@ -150,9 +145,7 @@ class Consumption():
             i += 1
         total_prod = np.array([])
         for i in range(len(weighted_F_list)):
-            if i == 0:
-                total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
-            elif i % total_factors == 0 and i < total_factors * total_goods:
+            if (i == 0) or (i % total_factors == 0 and i < total_factors * total_goods):
                 total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
         return total_prod
     #The following functions just serve for constructing the constraints 
