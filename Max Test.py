@@ -9,7 +9,7 @@ import scipy
 from scipy.optimize import minimize
 
 
-# Randomising from a range between 0 amd 1
+# Randomising from a range between 0 amd 1(to obtain parameters)
 def Loop(layer,dp):
     loop_output = np.array([])
     i = 0
@@ -18,7 +18,7 @@ def Loop(layer,dp):
         i += 1
     return loop_output
 
-# Randomising from a range between 0 amd 1
+# Randomising from a range between 0 amd 1(to obtain parameters)
 def Nested_Loop(layer_1,layer_2,dp):
     X = np.array([])
     loop_output = np.array([])
@@ -33,7 +33,7 @@ def Nested_Loop(layer_1,layer_2,dp):
         i += 1
     return loop_output
 
-#Mathematical operations across certain elements in an array
+#Mathematical operations across certain elements in an array(to obtain parameters)
 def Loop_Slice(array,step):
     X = np.array([])
     loop_output = np.array([])
@@ -57,12 +57,13 @@ total_goods = int(input("Please enter the number of types of goods produced in t
 # Obtain number of factors available in the economy
 total_factors = int(input("Please enter the number of types of factors available in the economy:"))
 
-# Obtain output list lengths
+# Obtain output list lengths. 
+#These numbers would be useful when manipulating the long list that consists of goods/factors demanded/supplied by each consumer
 consumption_length = total_consumers * total_goods
 factor_ss_length = total_consumers * total_goods
 consumer_length = consumption_length + factor_ss_length
 
-# Randomize parameters
+# Randomizing parameters
 # Utility Function
 y = random.randint(1,5)
 s = round(random.random(),2)
@@ -83,10 +84,11 @@ class Consumption():
         print ""
     def welfare_max(self,output_list):
         # THIS FUNCTION RETURNS A NUMBER (FOR OPTIMIZATION)
-        # Consumption list
+        # Construct the consumption list
         c_list = np.array(output_list[0:consumption_length])
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
         # Calculate utility
+        #The part from consuming goods
         weighted_utility_subc = np.multiply((c_list ** y) , A)
         utility_subc = np.array([])
         for i in range(len(weighted_utility_subc)):
@@ -95,7 +97,7 @@ class Consumption():
                 utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
             elif i % total_goods == 0 and i < total_goods * total_consumers:
                 utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
-           
+        #The part from supplying factors  
         tweighted_utility_subf = np.array([])
         i = 0
         while i < total_consumers:
@@ -118,27 +120,19 @@ class Consumption():
                 utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
             elif i % total_factors == 0 and i < total_consumers * total_factors:
                 utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
-        
+                
+        #combinding the goods part and the factors part of the utility function
         utility_list = np.array([])
         utility_list = np.round((utility_subc - utility_subf) , 2)
         
         # Make utilities positive
         utility_list_square = utility_list ** 2
-        # Maximize welfare
+        # Define the welfare function
         welfare = (np.sum(np.power(utility_list_square , utility_weights))) ** overall_weight
         neg_welfare = welfare * -1
         return neg_welfare
-    def total_consumption(self,output_list):
-        # Used in first constraint
-        c_list = np.array(output_list[0:consumption_length])
-        total_cons = Loop_Slice(c_list,total_goods)
-        return total_cons
-    def total_factor_ss(self,output_list):
-        # Used in second constraint
-        f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
-        factor_ss = Loop_Slice(f_list,total_factors)
-        return factor_ss
     def total_production(self,output_list):
+        #This function retrun total production for each goods given the factors used to produce them
         # Used in first constraint
         # Factor list
         f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
@@ -161,6 +155,17 @@ class Consumption():
             elif i % total_factors == 0 and i < total_factors * total_goods:
                 total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + total_factors]),0))
         return total_prod
+    #The following functions just serve for constructing the constraints 
+    def total_consumption(self,output_list):
+        # Used in first constraint
+        c_list = np.array(output_list[0:consumption_length])
+        total_cons = Loop_Slice(c_list,total_goods)
+        return total_cons
+    def total_factor_ss(self,output_list):
+        # Used in second constraint
+        f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
+        factor_ss = Loop_Slice(f_list,total_factors)
+        return factor_ss
     def total_factor_dd(self,output_list):
         # Used in second constraint
         f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
