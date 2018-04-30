@@ -22,7 +22,7 @@ class consumer(object):
     'g'=number of goods
     'f'=number of factors
     """
-    def __init__(slef,c,g,f):
+    def __init__(self,c,g,f):
         self.c = c
         self.g = g
         self.f = f
@@ -55,32 +55,32 @@ class consumer(object):
         weighted_utility_subc = np.multiply((c_list ** y) , A)
         utility_subc = np.array([])
         for i in range(len(weighted_utility_subc)):
-            if (i == 0) or (i % total_goods == 0 and i < total_goods * total_consumers):
-                utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + total_goods])) ** ((1 - s) / y))
+            if (i == 0) or (i % self.g == 0 and i < self.g * self.c):
+                utility_subc = np.append(utility_subc,(np.sum(weighted_utility_subc[i:i + self.g])) ** ((1 - s) / y))
         
         """
         Caluculate the utility that comes from supplying factors
         """
         tweighted_utility_subf = np.array([])
         i = 0
-        while i < total_consumers:
+        while i < self.c:
             j = 0
-            while j < total_factors:
-                tweighted_utility_subf = np.append(tweighted_utility_subf,((f_list[(i * total_factors) + j] ** (1 + T[j])) / (1 + T[j])))
+            while j < self.f:
+                tweighted_utility_subf = np.append(tweighted_utility_subf,((f_list[(i * self.f) + j] ** (1 + T[j])) / (1 + T[j])))
                 j += 1
             i += 1
         
         weighted_utility_subf = np.array([])
         for i in range(len(tweighted_utility_subf)):
             if i == 0:
-                weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + total_factors]) * B[i]))
+                weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + self.f]) * B[i]))
             if i % total_factors == 0 and i < total_consumers * total_factors:
-                weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + total_factors]) * B[i / total_factors])
+                weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + self.f]) * B[i / self.f])
         
         utility_subf = np.array([])
         for i in range(len(weighted_utility_subf)):
-            if (i== 0) or (i % total_factors == 0 and i < total_consumers * total_factors):
-                utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + total_factors])))
+            if (i== 0) or (i % self.f == 0 and i < self.c * self.f):
+                utility_subf = np.append(utility_subf,(np.sum(weighted_utility_subf[i:i + self.f])))
                 
         """
         Calculate the total utility for each consumer in the economy
