@@ -52,8 +52,8 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self):
-        Cons = ({'type': 'eq','fun' : lambda x:(consumption.total_consumption(x)-consumption.total_production(x))},
-        {'type': 'eq','fun' : lambda x:(consumption.total_factor_dd(x)-consumption.total_factor_ss(x))},
+        Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-Producer.Production(x))},
+        {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
         {'type': 'ineq','fun': lambda x:x})
         return Cons
 
