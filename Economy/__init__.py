@@ -14,6 +14,14 @@ import random
 import scipy
 from Consumer import Consumer
 from Producer import Producer
+from fucntion import Loop
+from function import Nested_Loop 
+from fucntion import Loop_Slice 
+from function import total_consumption
+from function import total_factor_ss
+from function import total_factor_dd
+from Government import SP
+
 
 class Economy(object):
     """
@@ -29,4 +37,17 @@ class Economy(object):
     Calculate the equilibria base on the consumers' preferences and technology
     """
     def Equilibrium(self):
+        """
+        Construct the initial value of optimization
+        """
+        output_list_length = self.c * (self.g + self.f) + self.g * self.f
+        output_list = []
+        i = 0
+        for i in range(output_list_length):
+        output_list.append(random.random())
+        """
+        Solve the optimization problem
+        """
+        res = minimize(SP.Welfare,output_list,method = 'SLSQP',constraints = SP.Consraints())
+        print res
         
