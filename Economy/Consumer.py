@@ -47,7 +47,7 @@ class consumer(object):
         A = Nested_Loop(self.c,self.g,2)
         B = Loop(self.c,2)
         T = Loop(self.f,2)
-        """
+        
         
         """
         Calculate the utility that comes from consuming goods
