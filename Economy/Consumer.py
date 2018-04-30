@@ -16,7 +16,7 @@ import Loop_Slice from fucntion
 Define the preferences of consumers
 """
 
-class consumer(object):
+class Consumer(object):
     """
     'c'=number of consumers
     'g'=number of goods
