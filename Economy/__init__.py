@@ -48,6 +48,7 @@ class Economy(object):
         """
         Solve the optimization problem
         """
-        res = minimize(SP.Welfare,output_list,method = 'SLSQP',constraints = SP.Consraints())
+        G = SP(self.c,self.g,self.f)
+        res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Consraints())
         print res
         
