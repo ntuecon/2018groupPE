@@ -13,7 +13,7 @@ import numpy as np
 import random
 import scipy
 from Consumer import Consumer
-from producer import Producer
+from Producer import Producer
 
 class Economy(object):
     """
