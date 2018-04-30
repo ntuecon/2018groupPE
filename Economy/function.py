@@ -55,3 +55,22 @@ def Loop_Slice(array,step):
         loop_output = np.append(loop_output,X)
         i += 1
 return loop_output
+
+"""
+Here are some functions that are used to construct the constraints
+"""
+def total_consumption(self,output_list):
+    # Used in first constraint
+    c_list = np.array(output_list[0:consumption_length])
+    total_cons = Loop_Slice(c_list,total_goods)
+    return total_cons   
+def total_factor_ss(self,output_list):
+    # Used in second constraint
+    f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
+    factor_ss = Loop_Slice(f_list,total_factors)
+    return factor_ss
+def total_factor_dd(self,output_list):
+    # Used in second constraint
+    f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
+    factor_dd = Loop_Slice(f_list,total_factors)
+    return factor_dd
