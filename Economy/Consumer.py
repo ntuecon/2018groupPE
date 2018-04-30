@@ -8,9 +8,9 @@ Created on Mon Apr 02 16:34:45 2018
 import numpy as np
 import random
 import scipy
-import Loop from function
-import Nested_Loop from function
-import Loop_Slice from fucntion
+from function import Loop
+from function import Nested_Loop 
+from fucntion import Loop_Slice 
 
 """
 Define the preferences of consumers
