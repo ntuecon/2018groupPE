@@ -31,7 +31,7 @@ class SP(object):
         """
         Call the utility function from Class:consumer
         """
-        C = Consumer(self.c,self.g,self.f)
+        C = Consumer(c,g,f)
         utility_list = Consumer.Utility(output_list)
         """
         Obtain parameters of the social welfare function
@@ -49,7 +49,7 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self):
-        P = Producer(self.c,self.g,self.f)
+        P = Producer(c,g,f)
         Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
         {'type': 'ineq','fun': lambda x:x})
