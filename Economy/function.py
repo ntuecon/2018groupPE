@@ -29,7 +29,7 @@ def Loop(layer,dp):
 Randomising from a range between 0 amd 1 (to obtain parameters)
 """
 
-def Nested_Loop(layer_1,layer_2,dp):
+def Nested_Loop_C(layer_1,layer_2,dp):
     X = np.array([])
     loop_output = np.array([])
     i = 0
@@ -43,6 +43,33 @@ def Nested_Loop(layer_1,layer_2,dp):
         i += 1
     return loop_output
 
+def Nested_Loop_P(layer_1,layer_2,dp):
+    X = np.array([])
+    loop_output = np.array([])
+    i = 0
+    while i < layer_1:
+        j = 0
+        while j < layer_2:
+            X = np.append(X,round(random.uniform(0.4,0.99),dp))
+            j += 1
+        loop_output = np.append(loop_output,X)
+        X = np.array([])
+        i += 1
+    return loop_output
+
+def Nested_Loop_Ex(layer_1,layer_2,dp):
+    X = np.array([])
+    loop_output = np.array([])
+    i = 0
+    while i < layer_1:
+        j = 0
+        while j < layer_2:
+            X = np.append(X,round(random.uniform(0.15,0.39),dp))
+            j += 1
+        loop_output = np.append(loop_output,X)
+        X = np.array([])
+        i += 1
+    return loop_output
 """
 Mathematical operations across certain elements in an array (to obtain parameters)
 """

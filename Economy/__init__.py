@@ -20,11 +20,13 @@ class Economy(object):
     'c'=number of consumers in the economy
     'g'=number of goods produced in the economy
     'f'=number of factors used in the production
+    'e1'=a good that uses a factor that creates a type of negative externality
     """
-    def __init__(self,c,g,f):
+    def __init__(self,c,g,f,e1):
         self.c = c
         self.g = g
         self.f = f
+        self.e1 = e1
     """
     Calculate the equilibrium based on the consumers' preferences and technology
     """
@@ -32,19 +34,19 @@ class Economy(object):
         """
         Construct the initial value of optimization
         """
-        output_list_length = c * (g + f) + g * f
+        output_list_length = self.c * (self.g + self.f) + self.g * self.f
         output_list = []
         i = 0
         for i in range(output_list_length):
-            output_list.append(random.random())
+            output_list.append(random.randint(1,10))
         return output_list
         """
         Solve the optimization problem
         """
-        G = SP(c,g,f)
+        G = SP(self.c,self.g,self.f)
         res = scipy.minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints())
         print res
 
 """Test case"""
-E1 = Economy(3,3,3)
+E1 = Economy(3,3,3,0)
 print Economy.Equilibrium(E1)
