@@ -1,3 +1,4 @@
+
 """
 Created on Mon Apr 02 16:34:45 2018
 """
@@ -7,10 +8,9 @@ Created on Mon Apr 02 16:34:45 2018
 
 import numpy as np
 import random
-import scipy
 
 """
-Define come useful function for iteration throuhg list
+Define some useful functions for iteration through different lists
 """
 
 """
@@ -26,7 +26,7 @@ def Loop(layer,dp):
     return loop_output
 
 """
-Randomising from a range between 0 amd 1(to obtain parameters)
+Randomising from a range between 0 amd 1 (to obtain parameters)
 """
 
 def Nested_Loop(layer_1,layer_2,dp):
@@ -44,7 +44,7 @@ def Nested_Loop(layer_1,layer_2,dp):
     return loop_output
 
 """
-Mathematical operations across certain elements in an array(to obtain parameters)
+Mathematical operations across certain elements in an array (to obtain parameters)
 """
 def Loop_Slice(array,step):
     X = np.array([])
@@ -54,7 +54,7 @@ def Loop_Slice(array,step):
         X = np.sum(array[i - 1::step])
         loop_output = np.append(loop_output,X)
         i += 1
-return loop_output
+    return loop_output
 
 """
 Here are some functions that are used to construct the constraints
@@ -64,11 +64,13 @@ def total_consumption(self,output_list):
     c_list = np.array(output_list[0:consumption_length])
     total_cons = Loop_Slice(c_list,total_goods)
     return total_cons   
+
 def total_factor_ss(self,output_list):
     # Used in second constraint
     f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
     factor_ss = Loop_Slice(f_list,total_factors)
     return factor_ss
+
 def total_factor_dd(self,output_list):
     # Used in second constraint
     f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])

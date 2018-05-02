@@ -12,14 +12,6 @@ Set up the basic environment for the economy
 import numpy as np
 import random
 import scipy
-from Consumer import Consumer
-from Producer import Producer
-from fucntion import Loop
-from function import Nested_Loop 
-from fucntion import Loop_Slice 
-from function import total_consumption
-from function import total_factor_ss
-from function import total_factor_dd
 from Government import SP
 
 
@@ -32,23 +24,27 @@ class Economy(object):
     def __init__(self,c,g,f):
         self.c = c
         self.g = g
-        slef.f = f
+        self.f = f
     """
-    Calculate the equilibria base on the consumers' preferences and technology
+    Calculate the equilibrium based on the consumers' preferences and technology
     """
     def Equilibrium(self):
         """
         Construct the initial value of optimization
         """
-        output_list_length = self.c * (self.g + self.f) + self.g * self.f
+        output_list_length = c * (g + f) + g * f
         output_list = []
         i = 0
         for i in range(output_list_length):
-        output_list.append(random.random())
+            output_list.append(random.random())
+        return output_list
         """
         Solve the optimization problem
         """
-        G = SP(self.c,self.g,self.f)
-        res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Consraints())
+        G = SP(c,g,f)
+        res = scipy.minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints())
         print res
-        
+
+"""Test case"""
+E1 = Economy(3,3,3)
+print Economy.Equilibrium(E1)

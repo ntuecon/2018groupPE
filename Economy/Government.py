@@ -7,12 +7,9 @@ Created on Mon Apr 02 16:34:45 2018
 
 import numpy as np
 import random
-import scipy
 from Consumer import Consumer
 from Producer import Producer
-from fucntion import Loop
-from function import Nested_Loop 
-from fucntion import Loop_Slice 
+from function import Loop
 from function import total_consumption
 from function import total_factor_ss
 from function import total_factor_dd
@@ -30,17 +27,17 @@ class SP(object):
     """
     Define the objective function for the social planner: the social welfare function
     """
-    def Welfare(self,output_list)
+    def Welfare(self,output_list):
         """
         Call the utility function from Class:consumer
         """
-        C = Consumer(self.c,self.g,self.f)
-        utility_list = Consumer.Utility(ouput_list)
+        C = Consumer(c,g,f)
+        utility_list = Consumer.Utility(output_list)
         """
         Obtain parameters of the social welfare function
         """
         overall_weight = 1 / (random.random())
-        utility_weights = Loop(self.c,2)
+        utility_weights = Loop(c,2)
         """
         Calculate the social welfare
         """
@@ -52,9 +49,8 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self):
-        P = Producer(self.c,self.g,self.f)
+        P = Producer(c,g,f)
         Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
         {'type': 'ineq','fun': lambda x:x})
         return Cons
-
