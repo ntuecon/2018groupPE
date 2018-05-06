@@ -56,8 +56,11 @@ class SP(object):
             if i % self.f == 1:
                 F = np.append(F,f_list[i - 1])
             i += 1
+        if (there is some externality):
         Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
         {'type': 'eq','fun' : lambda x:F[x]},
         {'type': 'ineq','fun': lambda x:x})
+        else:
+        Cons = ...
         return Cons
