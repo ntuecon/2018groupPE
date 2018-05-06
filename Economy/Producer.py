@@ -15,7 +15,7 @@ Define the production technoloy used by the economy
 """
 
 class Producer(object):
-   def __init__(self,c,g,f,e1=FALSE):
+   def __init__(self,c,g,f,e1=False):
        self.c = c
        self.g = g
        self.f = f
@@ -36,7 +36,7 @@ class Producer(object):
        Generate parameters for the production function
        """
        X = Loop(self.g,2)
-       if self.e1 == TRUE:
+       if self.e1 == True:
            P = Nested_Loop_P(self.g,self.f,2)
        else:
            P = Nested_Loop_Ex(self.g,self.f,2)       
@@ -56,7 +56,7 @@ class Producer(object):
            weightedflist = np.array([])
            i += 1
        total_prod = np.array([])
-       if self.e1 == TRUE:
+       if self.e1 == True:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
