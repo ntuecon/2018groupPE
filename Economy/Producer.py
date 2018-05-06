@@ -20,7 +20,7 @@ class Producer(object):
        self.g = g
        self.f = f
        self.e1 = e1
-   def Production(self):
+   def Production(self,output_list):
        """
        Setting up the calculation of total production
        """
@@ -67,8 +67,11 @@ class Producer(object):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
            return total_prod
-   def ex(self):
-       f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
+   def ex(self,output_list):
+       consumption_length = self.c * self.g
+       factor_ss_length = self.c * self.f
+       consumer_length = consumption_length + factor_ss_length
+       f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
        if self.e1 == True:
            i = 0
            while i < self.f * self.g:

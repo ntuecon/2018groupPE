@@ -9,10 +9,14 @@ Created on Mon Apr 02 16:34:45 2018
 Set up the basic environment for the economy
 """
 
-import numpy as np
 import random
-import scipy
+from scipy.optimize import minimize
 from Government import SP
+from Consumer import Consumer
+from Producer import Producer
+from function import Loop
+from function import Total
+
 
 
 class Economy(object):
@@ -38,15 +42,15 @@ class Economy(object):
         output_list = []
         i = 0
         for i in range(output_list_length):
-            output_list.append(random.randint(1,10))
-        return output_list
+            output_list.append(random.randint(0,10))
+
         """
         Solve the optimization problem
         """
         G = SP(self.c,self.g,self.f)
-        res = scipy.minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints())
+        res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints())
         print res
 
 """Test case"""
-E1 = Economy(3,3,3,e1=True)
+E1 = Economy(2,2,2,e1=True)
 print E1.Equilibrium()

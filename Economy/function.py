@@ -86,20 +86,35 @@ def Loop_Slice(array,step):
 """
 Here are some functions that are used to construct the constraints
 """
-def total_consumption(self,output_list):
-    # Used in first constraint
-    c_list = np.array(output_list[0:consumption_length])
-    total_cons = Loop_Slice(c_list,total_goods)
-    return total_cons   
-
-def total_factor_ss(self,output_list):
-    # Used in second constraint
-    f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
-    factor_ss = Loop_Slice(f_list,total_factors)
-    return factor_ss
-
-def total_factor_dd(self,output_list):
-    # Used in second constraint
-    f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
-    factor_dd = Loop_Slice(f_list,total_factors)
-    return factor_dd
+class Total(object):
+    def __init__(self,c,g,f):
+        self.c = c
+        self.f = f
+        self.g = g
+    def total_consumption(self,output_list):
+        # Used in first constraint
+        consumption_length = self.c * self.g
+        factor_ss_length = self.c * self.f
+        consumer_length = consumption_length + factor_ss_length
+        c_list = np.array(output_list[0:consumption_length])
+        total_cons = Loop_Slice(c_list,self.g)
+        return total_cons   
+    
+    def total_factor_ss(self,output_list):
+        # Used in second constraint
+        consumption_length = self.c * self.g
+        factor_ss_length = self.c * self.f
+        consumer_length = consumption_length + factor_ss_length
+        f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
+        factor_ss = Loop_Slice(f_list,self.f)
+        return factor_ss
+    
+    def total_factor_dd(self,output_list):
+        # Used in second constraint
+        consumption_length = self.c * self.g
+        factor_ss_length = self.c * self.f
+        consumer_length = consumption_length + factor_ss_length
+        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
+        factor_dd = Loop_Slice(f_list,self.f)
+        return factor_dd
+    

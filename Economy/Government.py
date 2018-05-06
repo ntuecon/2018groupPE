@@ -10,9 +10,8 @@ import random
 from Consumer import Consumer
 from Producer import Producer
 from function import Loop
-from function import total_consumption
-from function import total_factor_ss
-from function import total_factor_dd
+from function import Total
+
 
 
 """
@@ -32,7 +31,7 @@ class SP(object):
         Call the utility function from Class:consumer
         """
         C = Consumer(self.c,self.g,self.f)
-        utility_list = Consumer.Utility(output_list)
+        utility_list = C.Utility(output_list)
         """
         Obtain parameters of the social welfare function
         """
@@ -49,10 +48,13 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self):
-        P = Producer(self.c,self.g,self.f)
-        
-        Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-P.Production(x))},
-        {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
+        P = Producer(self.c,self.g,self.f,e1=True)
+        T = Total(self.c,self.g,self.f)
+        consumption_length = self.c * self.g
+        factor_ss_length = self.c * self.f
+        consumer_length = consumption_length + factor_ss_length
+        Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
+        {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
         {'type': 'eq','fun' : lambda x:P.ex(x)},
         {'type': 'ineq','fun': lambda x:x})
         return Cons
