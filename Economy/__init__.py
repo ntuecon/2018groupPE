@@ -22,7 +22,7 @@ class Economy(object):
     'f'=number of factors used in the production
     'e1'=a good that uses a factor that creates a type of negative externality
     """
-    def __init__(self,c,g,f,e1):
+    def __init__(self,c,g,f,e1=False):
         self.c = c
         self.g = g
         self.f = f
@@ -48,5 +48,5 @@ class Economy(object):
         print res
 
 """Test case"""
-E1 = Economy(3,3,3,0)
-print Economy.Equilibrium(E1)
+E1 = Economy(3,3,3,e1=True)
+print E1.Equilibrium()

@@ -50,17 +50,9 @@ class SP(object):
     """
     def Constraints(self):
         P = Producer(self.c,self.g,self.f)
-        F = np.array([])
-        i = 0
-        while i < self.f * self.g:
-            if i % self.f == 1:
-                F = np.append(F,f_list[i - 1])
-            i += 1
-        if (there is some externality):
+        
         Cons = ({'type': 'eq','fun' : lambda x:(total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(total_factor_dd(x)-total_factor_ss(x))},
-        {'type': 'eq','fun' : lambda x:F[x]},
+        {'type': 'eq','fun' : lambda x:P.ex(x)},
         {'type': 'ineq','fun': lambda x:x})
-        else:
-        Cons = ...
         return Cons

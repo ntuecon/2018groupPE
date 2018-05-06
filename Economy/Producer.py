@@ -36,7 +36,7 @@ class Producer(object):
        Generate parameters for the production function
        """
        X = Loop(self.g,2)
-       if self.e1 == True:
+       if self.e1 == False:
            P = Nested_Loop_P(self.g,self.f,2)
        else:
            P = Nested_Loop_Ex(self.g,self.f,2)       
@@ -45,7 +45,7 @@ class Producer(object):
        """
        weighted_F_list = np.array([])
        weightedflist = np.array([])
-       tax = f_list[(self.f * self.g) - 1] * 0.3
+       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.3
        i = 0
        while i < self.g:
            j = 0
@@ -56,14 +56,23 @@ class Producer(object):
            weightedflist = np.array([])
            i += 1
        total_prod = np.array([])
-       if self.e1 == True:
+       if self.e1 == 1:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
-           total_prod[self.g - 1] = total_prod[self.g - 1] - tax
+           total_prod[self.g - 1] = total_prod[self.g - 1] * (1 - tax)
            return total_prod
        else:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
            return total_prod
+   def ex(self):
+       f_list = np.array(output_list[consumer_length:consumer_length + total_goods * total_factors])
+       if self.e1 == True:
+           i = 0
+           while i < self.f * self.g:
+               if (i+1) % self.f == 1:
+                   return f_list[i]
+               i += 1
+               
