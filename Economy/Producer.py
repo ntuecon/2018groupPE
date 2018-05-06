@@ -15,7 +15,7 @@ Define the production technoloy used by the economy
 """
 
 class Producer(object):
-   def __init__(self,c,g,f,e1):
+   def __init__(self,c,g,f,e1=FALSE):
        self.c = c
        self.g = g
        self.f = f
@@ -56,7 +56,7 @@ class Producer(object):
            weightedflist = np.array([])
            i += 1
        total_prod = np.array([])
-       if self.e1 == 1:
+       if self.e1 == TRUE:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
