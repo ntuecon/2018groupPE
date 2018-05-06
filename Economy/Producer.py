@@ -36,7 +36,7 @@ class Producer(object):
        Generate parameters for the production function
        """
        X = Loop(self.g,2)
-       if self.e1 == 0:
+       if self.e1 == TRUE:
            P = Nested_Loop_P(self.g,self.f,2)
        else:
            P = Nested_Loop_Ex(self.g,self.f,2)       
