@@ -6,7 +6,6 @@ Created on Mon Apr 02 16:34:45 2018
 """
 
 import numpy as np
-import random
 from function import Loop
 from function import Nested_Loop_C
 
@@ -34,14 +33,13 @@ class Consumer(object):
         """
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
-        consumer_length = consumption_length +  factor_ss_length
         c_list = np.array(output_list[0:consumption_length])
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
         """
         Generate parameters for the utility function
         """
-        y = random.randint(1,5)
-        s = round(random.random(),2)
+        y = float(4)
+        s = float(5)
         A = Nested_Loop_C(self.c,self.g,2)
         B = Loop(self.c,2)
         T = Loop(self.f,2)

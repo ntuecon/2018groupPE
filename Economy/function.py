@@ -21,7 +21,7 @@ def Loop(layer,dp):
     loop_output = np.array([])
     i = 0
     while i < layer:
-        loop_output = np.append(loop_output,round(random.random(),dp))
+        loop_output = np.append(loop_output,round(random.uniform(0.2,0.9),dp))
         i += 1
     return loop_output
 
@@ -36,7 +36,7 @@ def Nested_Loop_C(layer_1,layer_2,dp):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.random(),dp))
+            X = np.append(X,round(random.uniform(0.2,0.9),dp))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
@@ -50,7 +50,7 @@ def Nested_Loop_P(layer_1,layer_2,dp):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.4,0.99),dp))
+            X = np.append(X,round(random.uniform(0.5,0.9),dp))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
@@ -64,7 +64,7 @@ def Nested_Loop_Ex(layer_1,layer_2,dp):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.15,0.39),dp))
+            X = np.append(X,round(random.uniform(0.2,0.49),dp))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])

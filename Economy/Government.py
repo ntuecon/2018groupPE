@@ -36,7 +36,7 @@ class SP(object):
         """
         Obtain parameters of the social welfare function
         """
-        overall_weight = 1 / (random.random())
+        overall_weight = 1 / (random.uniform(2,4))
         utility_weights = Loop(self.c,2)
         """
         Calculate the social welfare
@@ -53,11 +53,9 @@ class SP(object):
         T = Total(self.c,self.g,self.f)
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
-        consumer_length = consumption_length + factor_ss_length
         if self.e1 == True:
             Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
             {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
-            {'type': 'eq','fun' : lambda x:P.ex(x)},
             {'type': 'ineq','fun': lambda x:x})
             return Cons
         else:
