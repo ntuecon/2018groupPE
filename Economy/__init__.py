@@ -52,5 +52,5 @@ class Economy(object):
         print res
 
 """Test case"""
-E1 = Economy(2,2,2,e1=True)
+E1 = Economy(2,2,2)
 print E1.Equilibrium()

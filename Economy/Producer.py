@@ -72,10 +72,9 @@ class Producer(object):
        factor_ss_length = self.c * self.f
        consumer_length = consumption_length + factor_ss_length
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
-       if self.e1 == True:
-           i = 0
-           while i < self.f * self.g:
-               if (i+1) % self.f == 1:
-                   return f_list[i]
+       i = 0
+       while i < self.f * self.g:
+           if (i+1) % self.f == 0:
+               return f_list[i]
                i += 1
                

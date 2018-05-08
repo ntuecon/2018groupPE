@@ -19,10 +19,11 @@ Define the objective function and the constraints for the social planner
 """
 
 class SP(object):
-    def __init__(self,c,g,f):
+    def __init__(self,c,g,f,e1=False):
         self.c = c
         self.g = g
         self.f = f
+        self.e1 = e1
     """
     Define the objective function for the social planner: the social welfare function
     """
@@ -48,13 +49,19 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self):
-        P = Producer(self.c,self.g,self.f,e1=True)
+        P = Producer(self.c,self.g,self.f)
         T = Total(self.c,self.g,self.f)
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
         consumer_length = consumption_length + factor_ss_length
-        Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
-        {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
-        {'type': 'eq','fun' : lambda x:P.ex(x)},
-        {'type': 'ineq','fun': lambda x:x})
-        return Cons
+        if self.e1 == True:
+            Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
+            {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
+            {'type': 'eq','fun' : lambda x:P.ex(x)},
+            {'type': 'ineq','fun': lambda x:x})
+            return Cons
+        else:
+            Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
+            {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
+            {'type': 'ineq','fun': lambda x:x})
+            return Cons
