@@ -36,7 +36,7 @@ class SP(object):
         """
         Obtain parameters of the social welfare function
         """
-        overall_weight = 1 / (random.uniform(2,4))
+        overall_weight = 1 / (random.uniform(500,1000))
         utility_weights = Loop(self.c,2)
         """
         Calculate the social welfare

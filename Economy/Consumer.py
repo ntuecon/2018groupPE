@@ -38,8 +38,8 @@ class Consumer(object):
         """
         Generate parameters for the utility function
         """
-        y = float(4)
-        s = float(5)
+        y = float(10)
+        s = float(0.5)
         A = Nested_Loop_C(self.c,self.g,2)
         B = Loop(self.c,2)
         T = Loop(self.f,2)

@@ -41,7 +41,7 @@ class Economy(object):
         output_list_length = self.c * (self.g + self.f) + self.g * self.f
         output_list = []
         for i in range(output_list_length):
-            output_list.append(random.random())
+            output_list.append(random.randint(1,10))
 
         """
         Solve the optimization problem
