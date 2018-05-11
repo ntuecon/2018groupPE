@@ -35,11 +35,11 @@ class Producer(object):
        """
        Generate parameters for the production function
        """
-       X = Loop(self.g,2)
+       X = Loop(self.g)
        if self.e1 == False:
-           P = Nested_Loop_P(self.g,self.f,2)
+           P = Nested_Loop_P(self.g,self.f)
        else:
-           P = Nested_Loop_Ex(self.g,self.f,2)       
+           P = Nested_Loop_Ex(self.g,self.f)       
        """
        Calculate the total production
        """

@@ -10,6 +10,7 @@ Set up the basic environment for the economy
 """
 
 import random
+import numpy as np
 from scipy.optimize import minimize
 from Government import SP
 from Consumer import Consumer

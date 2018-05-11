@@ -40,9 +40,9 @@ class Consumer(object):
         """
         y = float(10)
         s = float(0.5)
-        A = Nested_Loop_C(self.c,self.g,2)
-        B = Loop(self.c,2)
-        T = Loop(self.f,2)
+        A = Nested_Loop_C(self.c,self.g)
+        B = Loop(self.c)
+        T = Loop(self.f)
         
         
         """

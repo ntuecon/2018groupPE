@@ -17,11 +17,11 @@ Define some useful functions for iteration through different lists
 Randomising from a range between 0 amd 1(to obtain parameters)
 """
 
-def Loop(layer,dp):
+def Loop(layer):
     loop_output = np.array([])
     i = 0
     while i < layer:
-        loop_output = np.append(loop_output,round(random.uniform(0.2,0.9),dp))
+        loop_output = np.append(loop_output,0.4)
         i += 1
     return loop_output
 
@@ -29,42 +29,42 @@ def Loop(layer,dp):
 Randomising from a range between 0 amd 1 (to obtain parameters)
 """
 
-def Nested_Loop_C(layer_1,layer_2,dp):
+def Nested_Loop_C(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
     i = 0
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.2,0.9),dp))
+            X = np.append(X,0.3)
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
         i += 1
     return loop_output
 
-def Nested_Loop_P(layer_1,layer_2,dp):
+def Nested_Loop_P(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
     i = 0
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.5,0.9),dp))
+            X = np.append(X,round(random.uniform(0.7,0.8)))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
         i += 1
     return loop_output
 
-def Nested_Loop_Ex(layer_1,layer_2,dp):
+def Nested_Loop_Ex(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
     i = 0
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.2,0.49),dp))
+            X = np.append(X,round(random.uniform(0.4,0.5)))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
