@@ -10,13 +10,10 @@ Set up the basic environment for the economy
 """
 
 import random
-import numpy as np
 from scipy.optimize import minimize
 from Government import SP
-from Consumer import Consumer
-from Producer import Producer
 from function import Loop
-from function import Total
+from function import Nested_Loop_C
 
 
 
@@ -32,6 +29,9 @@ class Economy(object):
         self.g = g
         self.f = f
         self.e1 = e1
+        self.A = Nested_Loop_C(self.c,self.g)
+        self.B = Loop(self.c)
+        self.T = Loop(self.f)
     """
     Calculate the equilibrium based on the consumers' preferences and technology
     """
@@ -42,13 +42,13 @@ class Economy(object):
         output_list_length = self.c * (self.g + self.f) + self.g * self.f
         output_list = []
         for i in range(output_list_length):
-            output_list.append(random.randint(1,10))
+            output_list.append(random.randint(0,20))
 
         """
         Solve the optimization problem
         """
-        G = SP(self.c,self.g,self.f)
-        res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints())
+        G = SP(self.c,self.g,self.f,self.A,self.B,self.T)
+        res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints(output_list))
         print res
 
 """Test case"""

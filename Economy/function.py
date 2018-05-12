@@ -21,7 +21,7 @@ def Loop(layer):
     loop_output = np.array([])
     i = 0
     while i < layer:
-        loop_output = np.append(loop_output,0.4)
+        loop_output = np.append(loop_output,0.3)
         i += 1
     return loop_output
 
@@ -36,7 +36,7 @@ def Nested_Loop_C(layer_1,layer_2):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,0.3)
+            X = np.append(X,random.uniform(0.3,0.5))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
@@ -95,7 +95,6 @@ class Total(object):
         # Used in first constraint
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
-        consumer_length = consumption_length + factor_ss_length
         c_list = np.array(output_list[0:consumption_length])
         total_cons = Loop_Slice(c_list,self.g)
         return total_cons   
@@ -104,7 +103,6 @@ class Total(object):
         # Used in second constraint
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
-        consumer_length = consumption_length + factor_ss_length
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
         factor_ss = Loop_Slice(f_list,self.f)
         return factor_ss

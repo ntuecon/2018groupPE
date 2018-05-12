@@ -6,8 +6,6 @@ Created on Mon Apr 02 16:34:45 2018
 """
 
 import numpy as np
-from function import Loop
-from function import Nested_Loop_C
 
 """
 Define the preferences of consumers
@@ -19,10 +17,13 @@ class Consumer(object):
     'g'=number of goods
     'f'=number of factors
     """
-    def __init__(self,c,g,f):
+    def __init__(self,c,g,f,A,B,T):
         self.c = c
         self.g = g
         self.f = f
+        self.A = A
+        self.B = B
+        self.T = T
     def Utility(self,output_list):
         """
         Setting up the utility calculation
@@ -40,15 +41,11 @@ class Consumer(object):
         """
         y = float(10)
         s = float(0.5)
-        A = Nested_Loop_C(self.c,self.g)
-        B = Loop(self.c)
-        T = Loop(self.f)
-        
         
         """
         Calculate the utility that comes from consuming goods
         """
-        weighted_utility_subc = np.multiply((c_list ** y) , A)
+        weighted_utility_subc = np.multiply((c_list ** y) , self.A)
         utility_subc = np.array([])
         for i in range(len(weighted_utility_subc)):
             if (i == 0) or (i % self.g == 0 and i < self.g * self.c):
@@ -62,16 +59,16 @@ class Consumer(object):
         while i < self.c:
             j = 0
             while j < self.f:
-                tweighted_utility_subf = np.append(tweighted_utility_subf,((f_list[(i * self.f) + j] ** (1 + T[j])) / (1 + T[j])))
+                tweighted_utility_subf = np.append(tweighted_utility_subf,((f_list[(i * self.f) + j] ** (1 + self.T[j])) / (1 + self.T[j])))
                 j += 1
             i += 1
         
         weighted_utility_subf = np.array([])
         for i in range(len(tweighted_utility_subf)):
             if i == 0:
-                weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + self.f]) * B[i]))
+                weighted_utility_subf = np.append(weighted_utility_subf,((tweighted_utility_subf[i:i + self.f]) * self.B[i]))
             if i % self.f == 0 and i < self.c * self.f:
-                weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + self.f]) * B[i / self.f])
+                weighted_utility_subf = np.append(weighted_utility_subf,(tweighted_utility_subf[i:i + self.f]) * self.B[i / self.f])
         
         utility_subf = np.array([])
         for i in range(len(weighted_utility_subf)):

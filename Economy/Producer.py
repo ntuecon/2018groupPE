@@ -45,7 +45,7 @@ class Producer(object):
        """
        weighted_F_list = np.array([])
        weightedflist = np.array([])
-       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.3
+       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.2
        i = 0
        while i < self.g:
            j = 0
@@ -56,7 +56,7 @@ class Producer(object):
            weightedflist = np.array([])
            i += 1
        total_prod = np.array([])
-       if self.e1 == 1:
+       if self.e1 == True:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
@@ -72,9 +72,12 @@ class Producer(object):
        factor_ss_length = self.c * self.f
        consumer_length = consumption_length + factor_ss_length
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
+       pos = np.array([])
        i = 0
        while i < self.f * self.g:
            if (i+1) % self.f == 0:
-               return f_list[i]
-               i += 1
+               pos = np.append(pos,f_list[i])
+       i += 1
+       return pos
+   
                
