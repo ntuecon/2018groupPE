@@ -50,7 +50,7 @@ class SP(object):
     Define the constraints for the maximization problem
     """
     def Constraints(self,output_list):
-        P = Producer(self.c,self.g,self.f)
+        P = Producer(self.c,self.g,self.f,self.e1)
         T = Total(self.c,self.g,self.f)
         if self.e1 == True:
             Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},

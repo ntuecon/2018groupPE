@@ -47,10 +47,10 @@ class Economy(object):
         """
         Solve the optimization problem
         """
-        G = SP(self.c,self.g,self.f,self.A,self.B,self.T)
+        G = SP(self.c,self.g,self.f,self.A,self.B,self.T,self.e1)
         res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints(output_list))
         print res
 
 """Test case"""
-E1 = Economy(2,2,2)
+E1 = Economy(2,2,2,e1=True)
 print E1.Equilibrium()

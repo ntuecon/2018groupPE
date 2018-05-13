@@ -45,7 +45,7 @@ class Producer(object):
        """
        weighted_F_list = np.array([])
        weightedflist = np.array([])
-       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.2
+       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.7
        i = 0
        while i < self.g:
            j = 0
