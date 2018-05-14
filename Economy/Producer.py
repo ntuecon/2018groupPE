@@ -32,7 +32,7 @@ class Producer(object):
        consumer_length = consumption_length + factor_ss_length
        # Define f_list as the last segment of the output_list that contains quantity demanded of each factor
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
-
+       
        # Generate production parameters
        
        X = Loop(self.g)
@@ -50,14 +50,14 @@ class Producer(object):
            # tf = 1 / (1 + x)
            tf = 1 / (1 + factor_dd[self.f - 1])
            # Obtain production parameters
-           P = Nested_Loop_P(self.g,self.f) * tf        
-       
+           P = Nested_Loop_P(self.g,self.f) * tf
+           
        # Calculate total production quantity of each good
        # Define the intermediate variables weighted_F_list and weightedflist as arrays containing the un-summed elements of the production of each good
        weighted_F_list = np.array([])
        weightedflist = np.array([])
        # Calculate the tax function when there is an externality
-       tax = 1 / (1 + (f_list[(self.f * self.g) - 1])
+       tax = 1 / (1 + f_list[(self.f * self.g) - 1])
        
        # Construct the production function to obtain the weighted_F_list (un-summed elements of production)
        # Loop through the list to conduct mathematical operations on the elements according to the production function
@@ -71,17 +71,17 @@ class Producer(object):
            weightedflist = np.array([])
            i += 1
        # Define total_prod as an array containing the total production quantity of each good
-        total_prod = np.array([])
-        # Obtain total production if the externality exists
-        if self.e1 == True:
+       total_prod = np.array([])
+       # Obtain total production if the externality exists
+       if self.e1 == True:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
-           # Total production is taxed        
+           # Total production is taxed
            total_prod[self.g - 1] = total_prod[self.g - 1] * (1 - tax)
            return total_prod
        # Obtain total production if the externality does not exist
-        else:
+       else:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
