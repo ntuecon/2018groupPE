@@ -1,22 +1,17 @@
-
 """
 Created on Mon Apr 02 16:34:45 2018
-"""
-"""
+
 @author: WeiJin,PoHan
 """
 
+# Import tools
 import numpy as np
 import random
 
-"""
-Define some useful functions for iteration through different lists
-"""
 
-"""
-Randomising from a range between 0 amd 1(to obtain parameters)
-"""
+# Define some useful functions for list iterations, or to generate function parameters
 
+# Generate function parameters using loop. Returns an array with length = number of parameters 
 def Loop(layer):
     loop_output = np.array([])
     i = 0
@@ -25,10 +20,8 @@ def Loop(layer):
         i += 1
     return loop_output
 
-"""
-Randomising from a range between 0 amd 1 (to obtain parameters)
-"""
-
+# Generate function parameters using nested loop. Returns an array with length = number of parameters
+# For consumer utility functions
 def Nested_Loop_C(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
@@ -43,6 +36,8 @@ def Nested_Loop_C(layer_1,layer_2):
         i += 1
     return loop_output
 
+# For producer production functions without externality
+# Generates random numbers from a higher range (0.7 to 0.8)
 def Nested_Loop_P(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
@@ -57,6 +52,8 @@ def Nested_Loop_P(layer_1,layer_2):
         i += 1
     return loop_output
 
+# For producer production functions with externality
+# Generates random numbers from a lower range (0.4 to 0.5)
 def Nested_Loop_Ex(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
@@ -70,49 +67,66 @@ def Nested_Loop_Ex(layer_1,layer_2):
         X = np.array([])
         i += 1
     return loop_output
-"""
-Mathematical operations across certain elements in an array (to obtain parameters)
-"""
+
+
+# Mathematical operations across certain elements in an array (to obtain parameters)
 def Loop_Slice(array,step):
     X = np.array([])
     loop_output = np.array([])
     i = 1
+    # Determine the step to skip elements within an array
     while i <= step:
+        # Add up selected elements, while skipping the other elements
         X = np.sum(array[i - 1::step])
         loop_output = np.append(loop_output,X)
         i += 1
     return loop_output
 
-"""
-Here are some functions that are used to construct the constraints
-"""
+
+# Functions that are used to construct the optimization constraints
 class Total(object):
     def __init__(self,c,g,f):
+        # c: Number of consumers in the economy
+        # g: Number of goods produced in the economy
+        # f: Number of factors used in the production
         self.c = c
         self.f = f
         self.g = g
+    
+    # Used in first constraint: Total consumption = Total production of each good
+    # Obtain total consumption of each good
     def total_consumption(self,output_list):
-        # Used in first constraint
+        # Obtain the length of the consumption segment of the output list
         consumption_length = self.c * self.g
-        factor_ss_length = self.c * self.f
+        # Define the consumption segnment of the output list as c_list
+        # The c_list contains the consumption quantity of each good by each consumer
         c_list = np.array(output_list[0:consumption_length])
+        # Add up total consumption of each good 
         total_cons = Loop_Slice(c_list,self.g)
         return total_cons   
     
+    # Used in second constraint: Total factor supplied = Total factor demanded of each factor
+    # Obtain total factor supplied of each factor
     def total_factor_ss(self,output_list):
-        # Used in second constraint
+        # Obtain the length of the factor supply segment of the output list
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
+        # Define the factor supply segment of the output list as f_list
+        # The f_list contains the factor supply quantity of each factor by each consumer
         f_list = np.array(output_list[consumption_length:consumption_length + factor_ss_length])
+        # Add up the total factor supplied of each factor
         factor_ss = Loop_Slice(f_list,self.f)
         return factor_ss
     
+    # Used in second constraint: Total factor supplied = Total factor demanded of each factor
+    # Obtain total factor demanded of each factor
     def total_factor_dd(self,output_list):
-        # Used in second constraint
+        # Obtain the length of the factor demand segment of the output list
         consumption_length = self.c * self.g
         factor_ss_length = self.c * self.f
         consumer_length = consumption_length + factor_ss_length
+        # The f_list contains the factor demand quantity of each factor by each producer
         f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
+        # Add up the total factor demanded of each factor
         factor_dd = Loop_Slice(f_list,self.f)
-        return factor_dd
-    
+        return factor_dd   
