@@ -4,59 +4,63 @@ Created on Mon Apr 02 16:34:45 2018
 @author: WeiJin,PoHan
 """
 
+# Import tools
 import numpy as np
-import random
+# Import modules
 from function import Loop
 from function import Nested_Loop_P
-from function import Nested_Loop_Ex
 from function import Total
 
-"""
-Define the production technoloy used by the economy
-"""
 
+# Create a class called Producer to simulate the production of different goods in the economy
 class Producer(object):
    def __init__(self,c,g,f,e1=False):
+       # c: Number of consumers in the economy
+       # g: Number of goods produced in the economy
+       # f: Number of factors used in the production
+       # e1: A good that uses a factor that creates a type of negative externality
        self.c = c
        self.g = g
        self.f = f
        self.e1 = e1
-   def Production(self,output_list):
-       """
-       Setting up the calculation of total production
-       """
        
-       """
-       Define variables that will be useful for list iterations
-       """
+   def Production(self,output_list):
+       # Setting up the calculation of total production
+       # Calculate the lengths of different segments in the output list
        consumption_length = self.c * self.g
        factor_ss_length = self.c * self.f
        consumer_length = consumption_length + factor_ss_length
+       # Define f_list as the last segment of the output_list that contains quantity demanded of each factor
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
-       """
-       just added:Following three lines
-       """
-       self.output_list = output_list
-       total = Total(self.c,self.g,self.f)
-       factor_dd = total.total_factor_dd(self.output_list)
-       """
-       Generate parameters for the production function
-       """
-      
+
+       # Generate production parameters
+       
        X = Loop(self.g)
-       """
-       Notice that when self.e1=True, P is a dicreasing function of last factor used
-       """
+       
        if self.e1 == False:
+           # Production externality does not exist
+           # Obtain production parameters
            P = Nested_Loop_P(self.g,self.f)
        else:
-           P = Nested_Loop_P(self.g,self.f)*2/(np.exp(1)**(2*factor_dd[self.g-1])+1)        
-       """
-       Calculate the total production
-       """
+           # Production externality exists in the last factor
+           # Calculate total quantity of last factor used
+           total = Total(self.c,self.g,self.f)
+           factor_dd = total.total_factor_dd(output_list)
+           # Define tf as a function that is decreasing with total quantity of the last factor (externality) used, which has a range between 0 and 1
+           # tf = 1 / (1 + x)
+           tf = 1 / (1 + factor_dd[self.f - 1])
+           # Obtain production parameters
+           P = Nested_Loop_P(self.g,self.f) * tf        
+       
+       # Calculate total production quantity of each good
+       # Define the intermediate variables weighted_F_list and weightedflist as arrays containing the un-summed elements of the production of each good
        weighted_F_list = np.array([])
        weightedflist = np.array([])
-       tax = (f_list[(self.f * self.g) - 1] ** 2) * 0.7
+       # Calculate the tax function when there is an externality
+       tax = 1 / (1 + (f_list[(self.f * self.g) - 1])
+       
+       # Construct the production function to obtain the weighted_F_list (un-summed elements of production)
+       # Loop through the list to conduct mathematical operations on the elements according to the production function
        i = 0
        while i < self.g:
            j = 0
@@ -66,29 +70,19 @@ class Producer(object):
            weighted_F_list = np.append(weighted_F_list,weightedflist)
            weightedflist = np.array([])
            i += 1
-       total_prod = np.array([])
-       if self.e1 == True:
+       # Define total_prod as an array containing the total production quantity of each good
+        total_prod = np.array([])
+        # Obtain total production if the externality exists
+        if self.e1 == True:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
+           # Total production is taxed        
            total_prod[self.g - 1] = total_prod[self.g - 1] * (1 - tax)
            return total_prod
-       else:
+       # Obtain total production if the externality does not exist
+        else:
            for i in range(len(weighted_F_list)):
                if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
                    total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
            return total_prod
-   def ex(self,output_list):
-       consumption_length = self.c * self.g
-       factor_ss_length = self.c * self.f
-       consumer_length = consumption_length + factor_ss_length
-       f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
-       pos = np.array([])
-       i = 0
-       while i < self.f * self.g:
-           if (i+1) % self.f == 0:
-               pos = np.append(pos,f_list[i])
-       i += 1
-       return pos
-   
-               

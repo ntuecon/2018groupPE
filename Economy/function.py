@@ -37,7 +37,6 @@ def Nested_Loop_C(layer_1,layer_2):
     return loop_output
 
 # For producer production functions without externality
-# Generates random numbers from a higher range (0.7 to 0.8)
 def Nested_Loop_P(layer_1,layer_2):
     X = np.array([])
     loop_output = np.array([])
@@ -46,22 +45,6 @@ def Nested_Loop_P(layer_1,layer_2):
         j = 0
         while j < layer_2:
             X = np.append(X,round(random.uniform(0.7,0.8)))
-            j += 1
-        loop_output = np.append(loop_output,X)
-        X = np.array([])
-        i += 1
-    return loop_output
-
-# For producer production functions with externality
-# Generates random numbers from a lower range (0.4 to 0.5)
-def Nested_Loop_Ex(layer_1,layer_2):
-    X = np.array([])
-    loop_output = np.array([])
-    i = 0
-    while i < layer_1:
-        j = 0
-        while j < layer_2:
-            X = np.append(X,round(random.uniform(0.4,0.5)))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
