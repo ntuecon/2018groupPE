@@ -9,6 +9,7 @@ import random
 from function import Loop
 from function import Nested_Loop_P
 from function import Nested_Loop_Ex
+from function import Total
 
 """
 Define the production technoloy used by the economy
@@ -33,13 +34,23 @@ class Producer(object):
        consumer_length = consumption_length + factor_ss_length
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
        """
+       just added:Following three lines
+       """
+       self.output_list = output_list
+       total = Total(self.c,self.g,self.f)
+       factor_dd = total.total_factor_dd(self.output_list)
+       """
        Generate parameters for the production function
        """
+      
        X = Loop(self.g)
+       """
+       Notice that when self.e1=True, P is a dicreasing function of last factor used
+       """
        if self.e1 == False:
            P = Nested_Loop_P(self.g,self.f)
        else:
-           P = Nested_Loop_Ex(self.g,self.f)       
+           P = Nested_Loop_P(self.g,self.f)*2/(np.exp(1)**(2*factor_dd[self.g-1])+1)        
        """
        Calculate the total production
        """
