@@ -53,6 +53,7 @@ def Nested_Loop_P(layer_1,layer_2):
 
 
 # Mathematical operations across certain elements in an array (to obtain parameters)
+# Starts with the first element of the first group
 def Loop_Slice(array,step):
     X = np.array([])
     loop_output = np.array([])
@@ -65,6 +66,21 @@ def Loop_Slice(array,step):
         i += 1
     return loop_output
 
+# Mathematical operations across certain elements in an array (to obtain parameters)
+# For reduction of efficiency when there is an externality
+# Starts with the last element of the first group
+def Loop_Slice_Ex(array,step,goods,tf):
+    X = np.array([])
+    loop_output = np.array([])
+    i = 1
+    while i <= step * goods:
+        if i % step == 0:
+            X = array[i - 1] * tf
+            loop_output = np.append(loop_output,X)
+        else:
+            loop_output = np.append(loop_output,array[i - 1])
+        i += 1
+    return loop_output
 
 # Functions that are used to construct the optimization constraints
 class Total(object):

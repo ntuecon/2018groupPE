@@ -10,6 +10,7 @@ import numpy as np
 from function import Loop
 from function import Nested_Loop_P
 from function import Total
+from function import Loop_Slice_Ex
 
 
 # Create a class called Producer to simulate the production of different goods in the economy
@@ -50,7 +51,8 @@ class Producer(object):
            # tf = 1 / (1 + x)
            tf = 1 / (1 + factor_dd[self.f - 1])
            # Obtain production parameters
-           P = Nested_Loop_P(self.g,self.f) * tf
+           p = Nested_Loop_P(self.g,self.f)
+           P = Loop_Slice_Ex(p,self.f,self.g,tf)
            
        # Calculate total production quantity of each good
        # Define the intermediate variables weighted_F_list and weightedflist as arrays containing the un-summed elements of the production of each good
