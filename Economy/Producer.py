@@ -52,6 +52,7 @@ class Producer(object):
            tf = 1 / (1 + factor_dd[self.f - 1])
            # Obtain production parameters
            p = Nested_Loop_P(self.g,self.f)
+           # Due to the externality, the efficiency of the last factor for all goods are reduced
            P = Loop_Slice_Ex(p,self.f,self.g,tf)
            
        # Calculate total production quantity of each good

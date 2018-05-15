@@ -74,6 +74,8 @@ def Loop_Slice_Ex(array,step,goods,tf):
     loop_output = np.array([])
     i = 1
     while i <= step * goods:
+        # Assumes that the last factor is the one causing the externality
+        # Therefore, the last factor of all goods suffer from reduced efficiency
         if i % step == 0:
             X = array[i - 1] * tf
             loop_output = np.append(loop_output,X)
