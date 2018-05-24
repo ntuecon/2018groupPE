@@ -38,7 +38,7 @@ class SP(object):
         
         # Generate the parameters for the welfare function
         # Obtain overall weight for the welfare function
-        overall_weight = 1 / float(100)
+        overall_weight = 1 / float(2)
         # Obtain individual utility weights for each consumer for the welfare function
         utility_weights = Loop(self.c)
         

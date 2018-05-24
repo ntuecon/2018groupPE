@@ -49,7 +49,7 @@ class Producer(object):
            factor_dd = total.total_factor_dd(output_list)
            # Define tf as a function that is decreasing with total quantity of the last factor (externality) used, which has a range between 0 and 1
            # tf = 1 / (1 + x)
-           tf = 1 / (1 + factor_dd[self.f - 1])
+           tf = 1 / (10 * (1 + factor_dd[self.f - 1]))
            # Obtain production parameters
            p = Nested_Loop_P(self.g,self.f)
            # Due to the externality, the efficiency of the last factor for all goods are reduced

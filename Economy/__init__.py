@@ -44,7 +44,7 @@ class Economy(object):
         G = SP(self.c,self.g,self.f,self.A,self.B,self.T,self.e1)
         # res: Results of optimization problem
         res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints(output_list))
-        print res
+        return res
 
 
 # TEST CASE
