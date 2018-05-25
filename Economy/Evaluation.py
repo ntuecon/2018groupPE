@@ -17,10 +17,13 @@ welfare_list = np.array([])
 E0 = Economy(2,2,2,e1=True)
 # Iterate maximization 30 times
 i = 0
-while i < 30:
+while i < 100:
     eqb = E0.Equilibrium()
     value = eqb.fun
-    welfare_list = np.append(welfare_list,value)
+    if np.isnan(value):
+        next
+    else:
+        welfare_list = np.append(welfare_list,value)
     i += 1
 # Obtain the average welfare from the 30 iterations using the welfare_list
 res_avg = np.mean(welfare_list) * -1
