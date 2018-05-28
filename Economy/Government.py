@@ -15,7 +15,7 @@ from function import Total
 
 # Define a class SP to simulate a social planner who determines the welfare function and constraints of the economy
 class SP(object):
-    def __init__(self,c,g,f,A,B,T,e1=False):
+    def __init__(self,c,g,f,A,B,T,e1=False,t=0):
         # c: Number of consumers in the economy
         # g: Number of goods produced in the economy
         # f: Number of factors used in the production
@@ -28,7 +28,7 @@ class SP(object):
         self.B = B
         self.T = T
         self.e1 = e1
-
+        self.t = t
     # Define the welfare function to be optimized
     def Welfare(self,output_list):
         # Initiate an instance of Consumer
@@ -53,7 +53,7 @@ class SP(object):
     # Define the contraints that enter the optimization function
     def Constraints(self,output_list):
         # Generate an instance of Producer
-        P = Producer(self.c,self.g,self.f,self.e1)
+        P = Producer(self.c,self.g,self.f,self.e1,self.t)
         # Generate an instance of Total
         T = Total(self.c,self.g,self.f)
         # Construct the constraints function

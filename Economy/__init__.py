@@ -15,7 +15,7 @@ from function import Nested_Loop_C
 
 # Create a class called Economy to observe the interaction between consumers, producers and government
 class Economy(object):
-    def __init__(self,c,g,f,e1=False):
+    def __init__(self,c,g,f,e1=False,t=0):
         # c: Number of consumers in the economy
         # g: Number of goods produced in the economy
         # f: Number of factors used in the production
@@ -28,7 +28,7 @@ class Economy(object):
         self.A = Nested_Loop_C(self.c,self.g)
         self.B = Loop(self.c)
         self.T = Loop(self.f)
-        
+        self.t = t
     # Calculate the equilibrium based on the consumers' preferences and technology
     def Equilibrium(self):
         # Obtain the output list with the correct list length
@@ -41,7 +41,7 @@ class Economy(object):
             
         # Solve the optimization problem
         # G: An instance of the social planner, who determines the welfare function and constraints
-        G = SP(self.c,self.g,self.f,self.A,self.B,self.T,self.e1)
+        G = SP(self.c,self.g,self.f,self.A,self.B,self.T,self.e1,self.t)
         # res: Results of optimization problem
         res = minimize(G.Welfare,output_list,method = 'SLSQP',constraints = G.Constraints(output_list))
         return res

@@ -16,7 +16,7 @@ from function import Loop_Slice_Ex
 tax_nom = 0
 # Create a class called Producer to simulate the production of different goods in the economy
 class Producer(object):
-   def __init__(self,c,g,f,e1=False):
+   def __init__(self,c,g,f,e1=False,t=0):
        # c: Number of consumers in the economy
        # g: Number of goods produced in the economy
        # f: Number of factors used in the production
@@ -25,6 +25,7 @@ class Producer(object):
        self.g = g
        self.f = f
        self.e1 = e1
+       self.t = t
        
    def Production(self,output_list):
        # Setting up the calculation of total production
@@ -72,7 +73,7 @@ class Producer(object):
            i += 1
        # Define tax as an array contaning the tax values on each good, based on quantity of last factor used
        tax = np.array([])
-       tax = tax_nom / (1 + f_ex_list)
+       tax = self.t / (1 + f_ex_list)
        
        # Construct the production function to obtain the weighted_F_list (un-summed elements of production)
        # Loop through the list to conduct mathematical operations on the elements according to the production function
