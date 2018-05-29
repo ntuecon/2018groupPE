@@ -1,6 +1,5 @@
 """
 Created on Thu May 24 15:19:31 2018
-
 @author: WeiJin
 """
 
@@ -10,20 +9,25 @@ import numpy as np
 from __init__ import Economy
 
 
-# Obtain the average welfare value of 30 iterations of optimization with externality, without tax
-# Create an array to store the welfare value from each iteration
+# Obtain the average welfare value of 30 iterations of optimization for the 3 scenarios below
+# Create arrays to store the welfare value from each iteration for the 3 scenarios below
 welfare_list0 = np.array([])
 welfare_list1 = np.array([])
 welfare_list2 = np.array([])
-# Create an instance of the Economy class with externality but no tax
+# Create an instance of the Economy class without externality
 E0 = Economy(2,2,2)
+# Create an instance of the Economy class with externality,but no tax
 E1 = Economy(2,2,2,e1=True)
+# Create an instance of the Economy class with externality and with tax
 E2 = Economy(2,2,2,e1=True,t=0.2)
-# Iterate maximization 30 times
+# Iterate maximization 100 times
 i = 0
 while i < 100:
+    # Maximization procedure
     eqb = E0.Equilibrium()
+    # Obtain maximization value
     value = eqb.fun
+    # Skip an iteration if it returns an invalid value
     if np.isnan(value):
         next
     else:
@@ -31,8 +35,11 @@ while i < 100:
     i += 1
 i = 0
 while i < 100:
+    # Maximization procedure
     eqb = E1.Equilibrium()
+    # Obtain maximization value
     value = eqb.fun
+    # Skip an iteration if it returns an invalid value
     if np.isnan(value):
         next
     else:
@@ -40,8 +47,11 @@ while i < 100:
     i += 1
 i = 0
 while i < 100:
+    # Maximization procedure
     eqb = E2.Equilibrium()
+    # Obtain maximization value
     value = eqb.fun
+    # Skip an iteration if it returns an invalid value
     if np.isnan(value):
         next
     else:
