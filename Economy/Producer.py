@@ -1,6 +1,5 @@
 """
 Created on Mon Apr 02 16:34:45 2018
-
 @author: WeiJin,PoHan
 """
 
@@ -12,11 +11,10 @@ from function import Nested_Loop_P
 from function import Total
 from function import Loop_Slice_Ex
 
-# Input numerator for tax function
-tax_nom = 0
+
 # Create a class called Producer to simulate the production of different goods in the economy
 class Producer(object):
-   def __init__(self,c,g,f,e1=False,t=0):
+   def __init__(self,c,g,f,e1=False):
        # c: Number of consumers in the economy
        # g: Number of goods produced in the economy
        # f: Number of factors used in the production
@@ -25,7 +23,6 @@ class Producer(object):
        self.g = g
        self.f = f
        self.e1 = e1
-       self.t = t
        
    def Production(self,output_list):
        # Setting up the calculation of total production
@@ -36,8 +33,7 @@ class Producer(object):
        # Define f_list as the last segment of the output_list that contains quantity demanded of each factor
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
        
-       # Generate production parameters
-       
+       # Generate production parameters     
        X = Loop(self.g)
        
        if self.e1 == False:
@@ -51,7 +47,7 @@ class Producer(object):
            factor_dd = total.total_factor_dd(output_list)
            # Define tf as a function that is decreasing with total quantity of the last factor (externality) used, which has a range between 0 and 1
            # tf = 1 / (1 + x)
-           tf = 1 / (10 * (1 + factor_dd[self.f - 1]))
+           tf = 1 / ((1 + factor_dd[self.f - 1]))
            # Obtain production parameters
            p = Nested_Loop_P(self.g,self.f)
            # Due to the externality, the efficiency of the last factor for all goods are reduced
@@ -71,9 +67,6 @@ class Producer(object):
                # Extract the quantity of last factor used in each good
                f_ex_list = np.append(f_ex_list,f_list[i - 1])
            i += 1
-       # Define tax as an array contaning the tax values on each good, based on quantity of last factor used
-       tax = np.array([])
-       tax = self.t / (1 + f_ex_list)
        
        # Construct the production function to obtain the weighted_F_list (un-summed elements of production)
        # Loop through the list to conduct mathematical operations on the elements according to the production function
@@ -88,17 +81,8 @@ class Producer(object):
            i += 1
        # Define total_prod as an array containing the total production quantity of each good
        total_prod = np.array([])
-       # Obtain total production if the externality exists
-       if self.e1 == True:
-           for i in range(len(weighted_F_list)):
-               if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
-                   total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
-           # Total production is taxed
-           total_prod = total_prod * (1 - tax)
-           return total_prod
-       # Obtain total production if the externality does not exist
-       else:
-           for i in range(len(weighted_F_list)):
-               if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
-                   total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
-           return total_prod
+       # Obtain total production
+       for i in range(len(weighted_F_list)):
+           if (i == 0) or (i % self.f == 0 and i < self.f * self.g):
+               total_prod = np.append(total_prod,round(np.sum(weighted_F_list[i:i + self.f]),0))
+       return total_prod        
