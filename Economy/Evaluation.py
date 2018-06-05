@@ -17,9 +17,9 @@ welfare_list2 = np.array([])
 lf_list = np.array([])
 
 # Create an instance of the Economy class with externality,but no tax
-E1 = Economy(2,2,2,e1=True)
+E1 = Economy(3,3,3,e1=True)
 # Create an instance of the Economy class with externality and with tax
-E2 = Economy(2,2,2,e1=True)
+E2 = Economy(3,3,3,e1=True)
 # Iterate maximization 100 times
 i = 0
 while i < 100:
@@ -28,7 +28,7 @@ while i < 100:
     # Obtain maximization value
     value = eqb.fun
     # Obtain amount of last factor used
-    lf = eqb.x[11] + eqb.x[9]
+    lf = eqb.x[26] + eqb.x[23] + eqb.x[20]
     # Skip an iteration if it returns an invalid value
     if np.isnan(value):
         next

@@ -44,7 +44,15 @@ def Nested_Loop_P(layer_1,layer_2):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,round(random.uniform(0.7,0.8)))
+            if j < layer_2 - 1:
+                X = np.append(X,round(random.uniform(0.6,0.7)))
+            else:
+                if i == layer_1 - 1:
+                    X = np.append(X,round(random.uniform(0.2,0.3)))
+                elif i == 0:
+                    X = np.append(X,round(random.uniform(0.8,0.9)))
+                else:
+                    X = np.append(X,round(random.uniform(0.5,0.6)))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])

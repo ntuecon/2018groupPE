@@ -33,7 +33,7 @@ class Producer(object):
        # Define f_list as the last segment of the output_list that contains quantity demanded of each factor
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
        
-       # Generate production parameters     
+       # Generate production parameters
        X = Loop(self.g)
        
        if self.e1 == False:
