@@ -74,7 +74,7 @@ class Producer(object):
        while i < self.g:
            j = 0
            while j < self.f:
-               weightedflist = np.append(weightedflist,((f_list[(i * self.f) + j] ** (1 - X[i])) / (1 - X[i])) * P[(i * self.f) + j])
+               weightedflist = np.append(weightedflist,P[(i * self.f) + j]*((f_list[(i * self.f) + j] ** (1 - X[i])) / (1 - X[i])) )
                j += 1
            weighted_F_list = np.append(weighted_F_list,weightedflist)
            weightedflist = np.array([])

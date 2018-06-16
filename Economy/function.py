@@ -16,7 +16,7 @@ def Loop(layer):
     loop_output = np.array([])
     i = 0
     while i < layer:
-        loop_output = np.append(loop_output,0.3)
+        loop_output = np.append(loop_output,0.95)
         i += 1
     return loop_output
 
@@ -29,7 +29,7 @@ def Nested_Loop_C(layer_1,layer_2):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,random.uniform(0.5,0.8))
+            X = np.append(X,random.uniform(0.5,0.52))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
@@ -52,13 +52,13 @@ def Nested_Loop_P(layer_1,layer_2):
             else:
                 # Last firm has lowest efficiency level
                 if i == layer_1 - 1:
-                    X = np.append(X,round(random.uniform(0.2,0.3)))
+                    X = np.append(X,0)
                 # First firm has highest efficiency level
                 elif i == 0:
-                    X = np.append(X,round(random.uniform(0.8,0.9)))
+                    X = np.append(X,round(random.uniform(0.9,0.92)))
                 # The rest of the firms have middle efficiency level
                 else:
-                    X = np.append(X,round(random.uniform(0.5,0.6)))
+                    X = np.append(X,round(random.uniform(0.5,0.52)))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])

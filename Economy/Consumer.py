@@ -35,7 +35,7 @@ class Consumer(object):
         
         # Generate consumption utility parameters
         # y: gamma; s: sigma
-        y = float(10)
+        y = float(5)
         s = float(0.5)
         
         # Calculate the utility that comes from consumption of goods

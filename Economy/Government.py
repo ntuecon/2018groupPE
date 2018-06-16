@@ -60,5 +60,10 @@ class SP(object):
         # Third constraint: All result values are non-negative
         Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
-        {'type': 'ineq','fun': lambda x:x})
+        {'type': 'ineq','fun': lambda x:x},
+        # First firm has highest efficiency
+        {'type': 'eq','fun': lambda x:x[20]-28},
+        {'type': 'eq','fun': lambda x:x[23]-1},
+        # Last firm has lowest efficiency
+        {'type': 'eq','fun': lambda x:x[26]-1})
         return Cons
