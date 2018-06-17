@@ -36,14 +36,14 @@ class SP(object):
         
         # Generate the parameters for the welfare function
         # Obtain overall weight for the welfare function
-        overall_weight = 1 / float(2)
+        overall_weight = float(1)
         # Obtain individual utility weights for each consumer for the welfare function
         utility_weights = Loop(self.c)
         
         # Calculate the welfare
         # The welfare function is defined as the (sum of U^(2x)) ^ y, where x are individual weights and y is the overall weight
-        utility_list_square = utility_list ** 2
-        welfare = (np.sum(np.power(utility_list_square , utility_weights))) ** overall_weight
+        utility_list_square = np.power(np.e,utility_list)
+        welfare = (np.sum(np.power(utility_list_square , utility_weights)))
         # Obtain the negative of the welfare for minimization
         neg_welfare = welfare * -1
         return neg_welfare
@@ -61,9 +61,7 @@ class SP(object):
         Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
         {'type': 'ineq','fun': lambda x:x},
-        # First firm has highest efficiency
-        {'type': 'eq','fun': lambda x:x[20]-28},
+        {'type': 'eq','fun': lambda x:x[20]-1},
         {'type': 'eq','fun': lambda x:x[23]-1},
-        # Last firm has lowest efficiency
-        {'type': 'eq','fun': lambda x:x[26]-1})
+        {'type': 'eq','fun': lambda x:x[26]-28})
         return Cons

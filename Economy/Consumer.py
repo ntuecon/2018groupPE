@@ -36,7 +36,7 @@ class Consumer(object):
         # Generate consumption utility parameters
         # y: gamma; s: sigma
         y = float(5)
-        s = float(0.5)
+        s = float(0.9)
         
         # Calculate the utility that comes from consumption of goods
         # Define weighted_utility_subc an array containing the un-summed elements of the consumption part of the utility function for each consumer

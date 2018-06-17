@@ -35,7 +35,7 @@ class Economy(object):
         output_list = []
         # Generate initial output list values for the optimization
         for i in range(output_list_length):
-            output_list.append(random.randint(0,20))
+            output_list.append(1)
             
         # Solve the optimization problem
         # G: An instance of the social planner, who determines the welfare function and constraints
@@ -49,4 +49,5 @@ class Economy(object):
 # E1: An instance of Economy
 E1 = Economy(3,3,3,e1=True)
 # Obtain equilibrium results
-print E1.Equilibrium()
+E = E1.Equilibrium()
+print E

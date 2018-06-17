@@ -47,7 +47,7 @@ def Nested_Loop_P(layer_1,layer_2):
             # Differentiating the efficiency of the last factor by each firm (at most 3 types of firms)
             # Coefficient of the production function for non-last factor is between 0.6 and 0.7
             if j < layer_2 - 1:
-                X = np.append(X,round(random.uniform(0.6,0.7)))
+                X = np.append(X,random.uniform(0.3,0.31))
             # Coefficient of the production function for last factor is differentiated
             else:
                 # Last firm has lowest efficiency level
@@ -55,10 +55,10 @@ def Nested_Loop_P(layer_1,layer_2):
                     X = np.append(X,0)
                 # First firm has highest efficiency level
                 elif i == 0:
-                    X = np.append(X,round(random.uniform(0.9,0.92)))
+                    X = np.append(X,random.uniform(0.9,0.92))
                 # The rest of the firms have middle efficiency level
                 else:
-                    X = np.append(X,round(random.uniform(0.5,0.52)))
+                    X = np.append(X,random.uniform(0.5,0.52))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
