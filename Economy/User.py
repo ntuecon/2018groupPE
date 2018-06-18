@@ -63,6 +63,12 @@ else:
     print "Invalid input. Please input either A/B/C/D"
 
 # Explanation of the different allocations
+print "At first glance, it might be straightforward that the government should allocate most of the water to the firm with highest efficiency."
 print ""
+print "But based on our simluations, the allocating nearly all of the quota to the most efficient firm did not have highest social welfare."
+print ""
+print "This might be due to the fact that marginal production is decreasing."
+print ""
+print "That is, the optimal allocation should be somewhere in between."
     
 
