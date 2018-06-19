@@ -10,7 +10,7 @@ from function import Loop
 from function import Nested_Loop_P
 from function import Total
 from function import Loop_Slice_Ex
-
+from function import Loop_P
 
 # Create a class called Producer to simulate the production of different goods in the economy
 class Producer(object):
@@ -34,7 +34,7 @@ class Producer(object):
        f_list = np.array(output_list[consumer_length:consumer_length + self.g * self.f])
        
        # Generate production parameters
-       X = Loop(self.g)
+       X = Loop_P(self.g)
        
        if self.e1 == False:
            # Production externality does not exist

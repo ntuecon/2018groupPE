@@ -61,7 +61,7 @@ class SP(object):
         Cons = ({'type': 'eq','fun' : lambda x:(T.total_consumption(x)-P.Production(x))},
         {'type': 'eq','fun' : lambda x:(T.total_factor_dd(x)-T.total_factor_ss(x))},
         {'type': 'ineq','fun': lambda x:x},
-        {'type': 'eq','fun': lambda x:x[20]-1},
-        {'type': 'eq','fun': lambda x:x[23]-1},
-        {'type': 'eq','fun': lambda x:x[26]-28})
+        {'type': 'eq','fun': lambda x:x[20]-15},
+        {'type': 'eq','fun': lambda x:x[23]-10},
+        {'type': 'eq','fun': lambda x:x[26]-5})
         return Cons

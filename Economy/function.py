@@ -20,6 +20,13 @@ def Loop(layer):
         i += 1
     return loop_output
 
+def Loop_P(layer):
+    loop_output = np.array([])
+    i = 0
+    while i < layer:
+        loop_output = np.append(loop_output,0.2)
+        i += 1
+    return loop_output
 # Generate function parameters using nested loop. Returns an array with length = number of parameters
 # For consumer utility functions
 def Nested_Loop_C(layer_1,layer_2):
@@ -55,10 +62,10 @@ def Nested_Loop_P(layer_1,layer_2):
                     X = np.append(X,0)
                 # First firm has highest efficiency level
                 elif i == 0:
-                    X = np.append(X,random.uniform(0.9,0.92))
+                    X = np.append(X,random.uniform(50,50.1))
                 # The rest of the firms have middle efficiency level
                 else:
-                    X = np.append(X,random.uniform(0.5,0.52))
+                    X = np.append(X,random.uniform(10,10.1))
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])
