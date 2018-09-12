@@ -36,7 +36,7 @@ def Nested_Loop_C(layer_1,layer_2):
     while i < layer_1:
         j = 0
         while j < layer_2:
-            X = np.append(X,random.uniform(0.5,0.52))
+            X = np.append(X,1)
             j += 1
         loop_output = np.append(loop_output,X)
         X = np.array([])

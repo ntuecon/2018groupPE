@@ -27,6 +27,7 @@ class Economy(object):
         self.A = Nested_Loop_C(self.c,self.g)
         self.B = Loop(self.c)
         self.T = Loop(self.f)
+    
     # Calculate the equilibrium based on the consumers' preferences and technology
     def Equilibrium(self):
         # Obtain the output list with the correct list length
